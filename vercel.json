@@ -3,6 +3,6 @@
     { "source": "/games",     "destination": "/games/index.html" },
     { "source": "/tools",     "destination": "/tools/index.html" },
     { "source": "/links",     "destination": "/links/index.html" },
-    { "source": "/portfolio", "destination": "/portfolio" }
+    { "source": "/portfolio", "destination": "/portfolio/index.html" }
   ]
 }
