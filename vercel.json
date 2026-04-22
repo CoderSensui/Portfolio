@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/libnav/:path*", "destination": "https://libnav.vercel.app/:path*" }
+  ]
+}
