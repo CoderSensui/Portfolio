@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games — lxwis.site</title>
+  <meta name="description" content="Browser games by lxwis — play right here, no downloads." />
+  <meta property="og:title"       content="Games — lxwis.site" />
+  <meta property="og:description" content="Browser games — play right here, no downloads needed." />
+  <meta property="og:image"       content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
+  <meta property="og:url"         content="https://lxwis.site/games" />
+  <meta name="theme-color"        content="#39ff8c" />
+  <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared.css" />
+  <style>
+    .page-hero {
+      position: relative; z-index: 2;
+      padding: 10rem 2.5rem 5rem; text-align: center;
+    }
+    .page-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--muted2); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.38rem 1rem;
+      margin-bottom: 2rem; letter-spacing: 0.1em;
+    }
+    .page-title {
+      font-family: var(--sans); font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800; letter-spacing: -0.04em; color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .page-title span { color: var(--green); }
+    .page-sub { font-family: var(--mono); font-size: 0.88rem; color: var(--muted2); max-width: 520px; margin: 0 auto 3rem; line-height: 1.75; }
+
+    /* SNAKE GAME */
+    .game-arena {
+      position: relative; z-index: 2;
+      max-width: 600px; margin: 0 auto 3rem;
+      padding: 0 2.5rem;
+    }
+    .game-wrap { display: flex; flex-direction: column; gap: 1rem; }
+    .game-header {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--muted2);
+    }
+    .game-header .score { color: var(--green); font-size: 1.1rem; font-weight: 700; }
+    .game-header .hiscore { color: var(--cyan); }
+    #snakeCanvas {
+      width: 100%; border-radius: 14px;
+      border: 1px solid var(--border); background: rgba(0,0,0,0.4);
+      display: block;
+    }
+    .game-controls {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;
+    }
+    .game-btn {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+      padding: 0.6rem 1.25rem; border-radius: 4px; cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); transition: all .25s;
+    }
+    .game-btn:hover, .game-btn.active { background: var(--green); color: var(--bg); border-color: var(--green); }
+    .game-overlay {
+      position: absolute; inset: 0; border-radius: 14px;
+      background: rgba(6,9,18,0.92); backdrop-filter: blur(8px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+      z-index: 10; top: 52px;
+    }
+    .game-overlay h2 { font-family: var(--sans); font-size: 2rem; font-weight: 800; color: var(--white); }
+    .game-overlay p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted2); }
+
+    /* D-PAD MOBILE */
+    .dpad {
+      display: none; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr;
+      gap: 4px; max-width: 140px; margin: 0 auto;
+    }
+    .dpad-btn {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      font-size: 1.1rem; cursor: pointer; user-select: none;
+      transition: background .15s;
+    }
+    .dpad-btn:active { background: var(--green-dim); }
+    .dpad-up    { grid-column: 2; grid-row: 1; }
+    .dpad-left  { grid-column: 1; grid-row: 2; }
+    .dpad-center{ grid-column: 2; grid-row: 2; font-size: 0.6rem; color: var(--muted); }
+    .dpad-right { grid-column: 3; grid-row: 2; }
+    .dpad-down  { grid-column: 2; grid-row: 3; }
+    @media (pointer: coarse) { .dpad { display: grid; } }
+
+    /* MORE GAMES GRID */
+    .games-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .game-card {
+      padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem;
+      position: relative; overflow: hidden; cursor: default;
+    }
+    .game-tag-live {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--green);
+      background: var(--green-dim); border: 1px solid rgba(57,255,140,.2);
+      padding: 0.15rem 0.5rem; border-radius: 100px;
+    }
+    .game-tag-soon {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--muted2);
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem; border-radius: 100px;
+    }
+    .game-card-icon { font-size: 2.5rem; }
+    .game-card-title { font-family: var(--sans); font-size: 1.2rem; font-weight: 800; color: var(--white); }
+    .game-card-desc  { font-size: 0.85rem; color: var(--muted2); line-height: 1.65; flex: 1; }
+
+    @media (max-width: 640px) { .page-hero { padding: 8rem 1.25rem 3rem; } .game-arena { padding: 0 1.25rem; } }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise"></div>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">
+      <img src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" alt="lxwis" />
+      lxwis<span class="blink">_</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">home</a></li>
+      <li><a href="/games" class="active">games</a></li>
+      <li><a href="/tools">tools</a></li>
+      <li><a href="/links">links</a></li>
+    </ul>
+    <a href="/" class="nav-cta">← back</a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/"      class="mobile-link">home</a>
+    <a href="/games" class="mobile-link">games</a>
+    <a href="/tools" class="mobile-link">tools</a>
+    <a href="/links" class="mobile-link">links</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-eyebrow reveal-up">🎮 lxwis.site/games</div>
+    <h1 class="page-title reveal-up delay-1">Play <span>Games</span></h1>
+    <p class="page-sub reveal-up delay-2">Browser games — no downloads, no installs. Just open and play.</p>
+  </div>
+
+  <!-- SNAKE GAME -->
+  <div class="game-arena reveal-up delay-3">
+    <div class="glass-card" style="padding:1.5rem;position:relative">
+      <div class="game-wrap">
+        <div class="game-header">
+          <span>🐍 Snake</span>
+          <div style="display:flex;gap:1.5rem;align-items:center">
+            <span>HI: <span class="hiscore" id="hiScore">0</span></span>
+            <span>Score: <span class="score" id="scoreVal">0</span></span>
+          </div>
+          <div class="game-controls">
+            <button class="game-btn" id="startBtn">Start</button>
+            <button class="game-btn" id="pauseBtn" disabled>Pause</button>
+          </div>
+        </div>
+        <div style="position:relative">
+          <canvas id="snakeCanvas" width="560" height="400"></canvas>
+          <div class="game-overlay" id="gameOverlay">
+            <h2 id="overlayTitle">🐍 Snake</h2>
+            <p id="overlayMsg">Press Start or tap below to play</p>
+            <button class="btn-primary" id="overlayBtn">Start Game</button>
+          </div>
+        </div>
+        <div class="dpad">
+          <div class="dpad-btn dpad-up"    id="dpUp">▲</div>
+          <div class="dpad-btn dpad-left"  id="dpLeft">◀</div>
+          <div class="dpad-btn dpad-center">✦</div>
+          <div class="dpad-btn dpad-right" id="dpRight">▶</div>
+          <div class="dpad-btn dpad-down"  id="dpDown">▼</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE GAMES -->
+  <section class="section" style="padding-top:2rem">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="label-num">→</span><span>more games</span></div>
+      <div class="games-grid">
+
+        <div class="game-card glass-card reveal-up delay-1">
+          <span class="game-tag-soon">coming soon</span>
+          <div class="game-card-icon">🧱</div>
+          <div class="game-card-title">Breakout</div>
+          <div class="game-card-desc">Classic brick-breaking arcade action — destroy all the blocks before you run out of balls.</div>
+        </div>
+
+        <div class="game-card glass-card reveal-up delay-2">
+          <span class="game-tag-soon">coming soon</span>
+          <div class="game-card-icon">🃏</div>
+          <div class="game-card-title">Memory Cards</div>
+          <div class="game-card-desc">Flip and match pairs as fast as possible. How sharp is your memory?</div>
+        </div>
+
+        <div class="game-card glass-card reveal-up delay-3">
+          <span class="game-tag-soon">coming soon</span>
+          <div class="game-card-icon">🔢</div>
+          <div class="game-card-title">2048</div>
+          <div class="game-card-desc">Slide and merge tiles to reach 2048. Simple concept, endless challenge.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="/" class="footer-logo">lxwis<span class="blink">_</span></a>
+      <span class="footer-copy">lxwis.site/games</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="/tools" class="footer-link">tools</a>
+        <a href="/links" class="footer-link">links</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../shared.js"></script>
+  <script>
+  // ── SNAKE GAME ──
+  (function() {
+    const canvas  = document.getElementById('snakeCanvas');
+    const ctx     = canvas.getContext('2d');
+    const CELL    = 20;
+    const COLS    = Math.floor(canvas.width  / CELL);
+    const ROWS    = Math.floor(canvas.height / CELL);
+    const GREEN   = '#39ff8c';
+    const CYAN    = '#00e5ff';
+    const ROSE    = '#ff6b8a';
+    const DARK    = 'rgba(0,0,0,0.0)';
+
+    let snake, dir, nextDir, food, score, hi, running, paused, loop;
+
+    function init() {
+      snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+      dir = { x: 1, y: 0 };
+      nextDir = { x: 1, y: 0 };
+      score = 0;
+      placeFood();
+      updateScore();
+    }
+
+    function placeFood() {
+      do {
+        food = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+      } while (snake.some(s => s.x === food.x && s.y === food.y));
+    }
+
+    function updateScore() {
+      document.getElementById('scoreVal').textContent = score;
+      hi = Math.max(hi || 0, score);
+      document.getElementById('hiScore').textContent = hi;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+      ctx.lineWidth = 0.5;
+      for (let x = 0; x <= canvas.width; x += CELL) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+      for (let y = 0; y <= canvas.height; y += CELL) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+
+      // Food
+      ctx.fillStyle = ROSE;
+      ctx.shadowColor = ROSE; ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(food.x * CELL + CELL/2, food.y * CELL + CELL/2, CELL/2 - 2, 0, Math.PI*2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Snake
+      snake.forEach((seg, i) => {
+        const t = i / snake.length;
+        ctx.fillStyle = i === 0 ? GREEN : `rgba(57,255,140,${0.9 - t * 0.6})`;
+        ctx.shadowColor = GREEN; ctx.shadowBlur = i === 0 ? 16 : 6;
+        const pad = i === 0 ? 1 : 2;
+        ctx.beginPath();
+        ctx.roundRect(seg.x * CELL + pad, seg.y * CELL + pad, CELL - pad*2, CELL - pad*2, 4);
+        ctx.fill();
+      });
+      ctx.shadowBlur = 0;
+    }
+
+    function step() {
+      dir = { ...nextDir };
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return gameOver();
+      if (snake.some(s => s.x === head.x && s.y === head.y))             return gameOver();
+
+      snake.unshift(head);
+      if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        updateScore();
+        placeFood();
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+
+    function gameOver() {
+      clearInterval(loop);
+      running = false;
+      document.getElementById('pauseBtn').disabled = true;
+      document.getElementById('overlayTitle').textContent = '💀 Game Over';
+      document.getElementById('overlayMsg').textContent = `Score: ${score}`;
+      document.getElementById('overlayBtn').textContent = 'Play Again';
+      document.getElementById('gameOverlay').style.display = 'flex';
+    }
+
+    function startGame() {
+      clearInterval(loop);
+      init();
+      running = true; paused = false;
+      document.getElementById('gameOverlay').style.display = 'none';
+      document.getElementById('pauseBtn').disabled = false;
+      loop = setInterval(step, 120);
+    }
+
+    function togglePause() {
+      if (!running) return;
+      paused = !paused;
+      if (paused) { clearInterval(loop); document.getElementById('pauseBtn').textContent = 'Resume'; }
+      else         { loop = setInterval(step, 120); document.getElementById('pauseBtn').textContent = 'Pause'; }
+    }
+
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('pauseBtn').addEventListener('click', togglePause);
+    document.getElementById('overlayBtn').addEventListener('click', startGame);
+
+    document.addEventListener('keydown', e => {
+      const map = { ArrowUp:{x:0,y:-1}, ArrowDown:{x:0,y:1}, ArrowLeft:{x:-1,y:0}, ArrowRight:{x:1,y:0}, w:{x:0,y:-1}, s:{x:0,y:1}, a:{x:-1,y:0}, d:{x:1,y:0} };
+      const key = e.key === 'ArrowUp' ? 'ArrowUp' : e.key === 'ArrowDown' ? 'ArrowDown' : e.key === 'ArrowLeft' ? 'ArrowLeft' : e.key === 'ArrowRight' ? 'ArrowRight' : e.key;
+      if (map[key]) {
+        const nd = map[key];
+        if (nd.x !== -dir.x && nd.y !== -dir.y) nextDir = nd;
+        e.preventDefault();
+      }
+      if (e.key === ' ') { e.preventDefault(); togglePause(); }
+    });
+
+    // D-PAD
+    const dp = { dpUp:{x:0,y:-1}, dpDown:{x:0,y:1}, dpLeft:{x:-1,y:0}, dpRight:{x:1,y:0} };
+    Object.entries(dp).forEach(([id, nd]) => {
+      document.getElementById(id)?.addEventListener('click', () => {
+        if (nd.x !== -dir.x && nd.y !== -dir.y) nextDir = nd;
+      });
+    });
+
+    // Initial draw
+    init(); draw();
+  })();
+  </script>
+</body>
+</html>
