@@ -1,327 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tools — lxwis.site</title>
-  <meta name="description" content="Web utilities by lxwis — lightweight tools you can use right in your browser." />
-  <meta property="og:title"       content="Tools — lxwis.site" />
-  <meta property="og:description" content="Lightweight web utilities — open and use instantly." />
-  <meta property="og:image"       content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
-  <meta property="og:url"         content="https://lxwis.site/tools" />
-  <meta name="theme-color"        content="#00e5ff" />
-  <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../shared.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Links — lxwis</title>
+  <meta name="description" content="All of lxwis's links — socials, projects, everything."/>
+  <meta property="og:title" content="Links — lxwis"/>
+  <meta property="og:image" content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand"/>
+  <meta name="theme-color" content="#9d6eff"/>
+  <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root { --accent: var(--cyan); --accent-dim: rgba(0,229,255,0.12); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#060912;--bd:rgba(255,255,255,.07);--g:#39ff8c;--gd:rgba(57,255,140,.1);--cy:#00e5ff;--vi:#9d6eff;--vd:rgba(157,110,255,.12);--ro:#ff6b8a;--go:#f5c542;--w:#edf2f7;--tx:#a8bcd4;--mu:#3d4f66;--mu2:#607080;--mo:'Space Mono',monospace;--sa:'Syne',sans-serif;--bo:'Outfit',sans-serif;--ease:cubic-bezier(.4,0,.2,1);--sp:cubic-bezier(.34,1.56,.64,1);--t:.3s}
+    html{font-size:16px}
+    body{background:var(--bg);color:var(--tx);font-family:var(--bo);overflow-x:hidden;cursor:none;min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--vi);border-radius:2px}
+    .cursor{position:fixed;width:30px;height:30px;border:1.5px solid var(--vi);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;will-change:left,top}
+    .cursor-dot{position:fixed;width:5px;height:5px;background:var(--vi);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
+    .cursor.big{width:50px;height:50px;background:var(--vd)}
+    @media(pointer:coarse){.cursor,.cursor-dot{display:none}body{cursor:auto}}
+    #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 
-    .page-hero { position:relative;z-index:2; padding:10rem 2.5rem 5rem; text-align:center; }
-    .page-eyebrow {
-      display:inline-flex;align-items:center;gap:.6rem;
-      font-family:var(--mono);font-size:.7rem;color:var(--muted2);
-      border:1px solid var(--border);border-radius:100px;
-      padding:.38rem 1rem;margin-bottom:2rem;letter-spacing:.1em;
-    }
-    .page-title { font-family:var(--sans);font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.04em;color:var(--white);margin-bottom:1rem; }
-    .page-title span { color:var(--cyan); }
-    .page-sub { font-family:var(--mono);font-size:.88rem;color:var(--muted2);max-width:520px;margin:0 auto 3rem;line-height:1.75; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;gap:1.5rem;padding:1.2rem 2.5rem;transition:background .4s,border-bottom .4s}
+    nav.scrolled{background:rgba(6,9,18,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
+    .nav-logo{font-family:var(--mo);font-size:1rem;letter-spacing:.05em;margin-right:auto}
+    .nav-logo .lx{color:var(--w)}.nav-logo .wis{color:var(--g)}.nav-logo .blink{color:var(--g);animation:blink 1s step-end infinite}
+    .nav-links{display:flex;gap:1.75rem}
+    .nav-links a{font-family:var(--mo);font-size:.74rem;color:var(--mu2);letter-spacing:.1em;position:relative;transition:color var(--t)}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--vi);transition:width var(--t)}
+    .nav-links a:hover,.nav-links a.active{color:var(--w)}.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-back{font-family:var(--mo);font-size:.72rem;color:var(--vi);border:1px solid rgba(157,110,255,.3);padding:.42rem .9rem;border-radius:4px;transition:background var(--t),color var(--t)}
+    .nav-back:hover{background:var(--vi);color:#fff}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .nav-toggle span{display:block;width:22px;height:1.5px;background:var(--w);transition:var(--t)}
+    .nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.nav-toggle.open span:nth-child(2){opacity:0}.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .mob{position:fixed;inset:0;z-index:999;background:rgba(6,9,18,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transform:translateX(100%);transition:transform .45s var(--ease)}
+    .mob.open{transform:translateX(0)}
+    .mob a{font-family:var(--sa);font-size:2.2rem;font-weight:800;color:var(--w);transition:color var(--t)}.mob a:hover{color:var(--vi)}
 
-    /* TOOLS GRID */
-    .tools-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem; }
-    .tool-card { padding:2rem;display:flex;flex-direction:column;gap:1.25rem;position:relative;overflow:hidden; }
-    .tool-card::before {
-      content:'';position:absolute;inset:0;
-      background:radial-gradient(circle at 10% 90%, var(--card-glow,rgba(0,229,255,.07)),transparent 60%);
-      opacity:0;transition:opacity .4s;
-    }
-    .tool-card:hover::before { opacity:1; }
-    .tool-tag {
-      display:inline-flex;align-items:center;gap:.4rem;
-      font-family:var(--mono);font-size:.6rem;
-      padding:.15rem .55rem;border-radius:100px;
-      width:fit-content;
-    }
-    .tag-live { color:var(--cyan);background:var(--accent-dim);border:1px solid rgba(0,229,255,.2); }
-    .tag-soon { color:var(--muted2);background:var(--surface);border:1px solid var(--border); }
-    .tool-icon { font-size:2.2rem; }
-    .tool-title { font-family:var(--sans);font-size:1.2rem;font-weight:800;color:var(--white); }
-    .tool-desc { font-size:.88rem;color:var(--muted2);line-height:1.65;flex:1; }
-    .tool-action { align-self:flex-start; }
+    .page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:7rem 1.5rem 5rem;gap:0}
 
-    /* INLINE TOOLS */
-    .inline-tool { position:relative;z-index:2;max-width:800px;margin:0 auto;padding:0 2.5rem 3rem; }
-    .tool-ui { display:flex;flex-direction:column;gap:1rem; }
-    .tool-label { font-family:var(--mono);font-size:.72rem;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase; }
-    .tool-input {
-      width:100%;padding:.85rem 1rem;background:var(--surface);
-      border:1px solid var(--border);border-radius:8px;
-      color:var(--white);font-family:var(--mono);font-size:.88rem;
-      outline:none;transition:border-color .25s;
-      resize:vertical;min-height:80px;
-    }
-    .tool-input:focus { border-color:var(--cyan); }
-    .tool-input-single { height:auto;resize:none;min-height:unset; }
-    .tool-row { display:flex;gap:.75rem;flex-wrap:wrap; }
-    .tool-output {
-      width:100%;padding:1rem;background:rgba(0,0,0,.3);
-      border:1px solid var(--border);border-radius:8px;
-      color:var(--green);font-family:var(--mono);font-size:.85rem;
-      line-height:1.75;min-height:60px;word-break:break-all;
-    }
-    .tool-output.cyan { color:var(--cyan); }
-    .copy-toast {
-      position:fixed;bottom:2rem;right:2rem;z-index:9999;
-      background:var(--green);color:var(--bg);
-      font-family:var(--mono);font-size:.75rem;font-weight:700;
-      padding:.6rem 1.25rem;border-radius:6px;
-      transform:translateY(80px);opacity:0;
-      transition:transform .3s var(--ease-spring),opacity .3s;
-    }
-    .copy-toast.show { transform:translateY(0);opacity:1; }
+    .profile{display:flex;flex-direction:column;align-items:center;gap:1.1rem;margin-bottom:3rem;text-align:center}
+    .avatar-ring{position:relative;display:inline-block;margin-bottom:.25rem}
+    .avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid rgba(157,110,255,.45);box-shadow:0 0 50px rgba(157,110,255,.25);display:block}
+    .ring-orbit{position:absolute;inset:-12px;border-radius:50%;border:1px dashed rgba(157,110,255,.25);animation:spin 16s linear infinite}
+    .ring-orbit::before{content:'';position:absolute;top:9px;left:50%;width:6px;height:6px;background:var(--vi);border-radius:50%;transform:translateX(-50%);box-shadow:0 0 8px var(--vi)}
+    .profile-name{font-family:var(--sa);font-size:2.2rem;font-weight:800;letter-spacing:-.035em;color:var(--w)}
+    .profile-name .lx{color:var(--w)}.profile-name .wis{color:var(--g)}
+    .profile-handle{font-family:var(--mo);font-size:.72rem;color:var(--mu2);letter-spacing:.1em}
+    .profile-bio{font-size:.9rem;color:var(--tx);line-height:1.65;max-width:320px}
+    .badges{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.25rem}
+    .badge{font-family:var(--mo);font-size:.58rem;padding:.22rem .65rem;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--mu2);letter-spacing:.06em}
 
-    @media(max-width:640px){.page-hero{padding:8rem 1.25rem 3rem;}.inline-tool{padding:0 1.25rem 2rem;}}
+    .links-container{width:100%;max-width:460px;display:flex;flex-direction:column;gap:.7rem}
+
+    .group-label{font-family:var(--mo);font-size:.58rem;color:var(--mu);letter-spacing:.18em;text-transform:uppercase;padding-left:.25rem;margin-top:.75rem;margin-bottom:.1rem}
+
+    .link-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--bd);text-decoration:none;color:var(--w);position:relative;overflow:hidden;transition:transform .35s var(--sp),border-color var(--t),box-shadow var(--t)}
+    .link-item::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,var(--item-glow,transparent),transparent 60%);opacity:0;transition:opacity .35s}
+    .link-item:hover::before{opacity:1}
+    .link-item:hover{transform:translateX(8px);border-color:var(--item-border,rgba(157,110,255,.3));box-shadow:0 8px 32px rgba(0,0,0,.4)}
+    .link-item:hover .link-arrow{opacity:1;transform:translate(3px,-3px)}
+    .link-item:hover .link-name{color:var(--item-accent,var(--vi))}
+
+    .link-icon-wrap{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;transition:background .25s}
+    .link-item:hover .link-icon-wrap{background:rgba(255,255,255,.1)}
+    .link-name{font-family:var(--sa);font-size:.95rem;font-weight:700;margin-bottom:.12rem;transition:color var(--t)}
+    .link-url{font-family:var(--mo);font-size:.62rem;color:var(--mu2)}
+    .link-arrow{margin-left:auto;font-size:.82rem;color:var(--mu);opacity:0;transition:opacity var(--t),transform var(--t);flex-shrink:0}
+
+    .link-featured{padding:1.2rem 1.4rem}
+    .link-featured .link-name{font-size:1.05rem}
+
+    .footer-note{margin-top:3rem;font-family:var(--mo);font-size:.62rem;color:var(--mu);text-align:center;line-height:1.8}
+    .footer-note a{color:var(--vi);transition:opacity .2s}.footer-note a:hover{opacity:.7}
+
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}.reveal.in{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
+    .d5{transition-delay:.3s}.d6{transition-delay:.36s}.d7{transition-delay:.42s}.d8{transition-delay:.48s}.d9{transition-delay:.54s}.d10{transition-delay:.6s}.d11{transition-delay:.66s}.d12{transition-delay:.72s}.d13{transition-delay:.78s}
+
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,110,255,.5)}70%{box-shadow:0 0 0 8px rgba(157,110,255,0)}100%{box-shadow:0 0 0 0 rgba(157,110,255,0)}}
+    @media(max-width:768px){nav{padding:1rem 1.25rem}.nav-links,.nav-back{display:none}.nav-toggle{display:flex}.page{padding:6rem 1.25rem 4rem}}
   </style>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <canvas id="bg-canvas"></canvas>
   <div class="noise"></div>
-  <div class="copy-toast" id="copyToast">Copied!</div>
 
   <nav id="nav">
-    <a href="/" class="nav-logo">
-      <img src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" alt="lxwis" />
-      lxwis<span class="blink">_</span>
-    </a>
+    <a href="/" class="nav-logo"><span class="lx">lx</span><span class="wis">wis</span><span class="blink">_</span></a>
     <ul class="nav-links">
       <li><a href="/">home</a></li>
+      <li><a href="/portfolio">portfolio</a></li>
       <li><a href="/games">games</a></li>
-      <li><a href="/tools" class="active">tools</a></li>
-      <li><a href="/links">links</a></li>
+      <li><a href="/tools">tools</a></li>
+      <li><a href="/links" class="active">links</a></li>
     </ul>
-    <a href="/" class="nav-cta">← back</a>
+    <a href="/" class="nav-back">← home</a>
     <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
   </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/"      class="mobile-link">home</a>
-    <a href="/games" class="mobile-link">games</a>
-    <a href="/tools" class="mobile-link">tools</a>
-    <a href="/links" class="mobile-link">links</a>
+  <div class="mob" id="mob">
+    <a href="/">home</a><a href="/portfolio">portfolio</a><a href="/games">games</a><a href="/tools">tools</a><a href="/links">links</a>
   </div>
 
-  <div class="page-hero">
-    <div class="page-eyebrow reveal-up">🛠️ lxwis.site/tools</div>
-    <h1 class="page-title reveal-up delay-1">Web <span>Tools</span></h1>
-    <p class="page-sub reveal-up delay-2">Lightweight utilities — open, use, done. No login, no nonsense.</p>
-  </div>
-
-  <!-- CHAR COUNTER TOOL -->
-  <div class="inline-tool reveal-up delay-3">
-    <div class="glass-card" style="padding:2rem">
-      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
-        <span style="font-size:1.75rem">📝</span>
-        <div>
-          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Character Counter</div>
-          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">count chars, words, lines — instantly</div>
-        </div>
-        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
+  <main class="page">
+    <div class="profile">
+      <div class="avatar-ring reveal d1">
+        <div class="ring-orbit"></div>
+        <img class="avatar" src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" alt="lxwis"/>
       </div>
-      <div class="tool-ui">
-        <div>
-          <div class="tool-label">Your text</div>
-          <textarea class="tool-input" id="ccInput" placeholder="Paste or type anything here…" rows="5"></textarea>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
-          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
-            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--cyan)" id="cc-chars">0</span>
-            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">CHARS</span>
-          </div>
-          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
-            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--green)" id="cc-words">0</span>
-            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">WORDS</span>
-          </div>
-          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
-            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--violet)" id="cc-lines">0</span>
-            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">LINES</span>
-          </div>
-          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
-            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--gold)" id="cc-nospace">0</span>
-            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">NO SPACE</span>
-          </div>
-        </div>
+      <div class="profile-name reveal d2"><span class="lx">lx</span><span class="wis">wis</span></div>
+      <div class="profile-handle reveal d3">@iamlxwis</div>
+      <p class="profile-bio reveal d4">Student developer from General Santos City — building real things on the web.</p>
+      <div class="badges reveal d5">
+        <span class="badge">🎓 ND-Siena College</span>
+        <span class="badge">💻 Web Dev</span>
+        <span class="badge">🇵🇭 GenSan</span>
+        <span class="badge">⚡ Firebase</span>
       </div>
     </div>
-  </div>
 
-  <!-- BASE64 TOOL -->
-  <div class="inline-tool reveal-up">
-    <div class="glass-card" style="padding:2rem">
-      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
-        <span style="font-size:1.75rem">🔐</span>
-        <div>
-          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Base64 Encoder/Decoder</div>
-          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">encode or decode base64 strings</div>
+    <div class="links-container">
+
+      <div class="group-label reveal d5">🌐 my site</div>
+
+      <a href="https://lxwis.site" target="_blank" class="link-item link-featured reveal d6"
+         style="--item-glow:rgba(57,255,140,.1);--item-border:rgba(57,255,140,.35);--item-accent:#39ff8c">
+        <div class="link-icon-wrap">🏠</div>
+        <div><div class="link-name">lxwis.site</div><div class="link-url">Home · lxwis.site</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://libnav.lxwis.site" target="_blank" class="link-item reveal d7"
+         style="--item-glow:rgba(0,229,255,.08);--item-border:rgba(0,229,255,.3);--item-accent:#00e5ff">
+        <div class="link-icon-wrap">📚</div>
+        <div><div class="link-name">LibNav</div><div class="link-url">Library navigation system · libnav.lxwis.site</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <div class="group-label reveal d7">📱 socials</div>
+
+      <a href="https://github.com/iamlxwis" target="_blank" class="link-item reveal d8"
+         style="--item-glow:rgba(255,255,255,.05);--item-border:rgba(255,255,255,.2);--item-accent:#edf2f7">
+        <div class="link-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.461-1.11-1.461-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         </div>
-        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
-      </div>
-      <div class="tool-ui">
-        <div>
-          <div class="tool-label">Input</div>
-          <textarea class="tool-input" id="b64Input" placeholder="Type text to encode, or base64 to decode…" rows="3"></textarea>
+        <div><div class="link-name">GitHub</div><div class="link-url">github.com/iamlxwis</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://facebook.com/iamlxwis" target="_blank" class="link-item reveal d9"
+         style="--item-glow:rgba(24,119,242,.1);--item-border:rgba(24,119,242,.35);--item-accent:#4a90d9">
+        <div class="link-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
         </div>
-        <div class="tool-row">
-          <button class="btn-primary" onclick="doB64('encode')">Encode →</button>
-          <button class="btn-ghost"   onclick="doB64('decode')">← Decode</button>
-          <button class="game-btn"    onclick="copyOutput('b64Out')">Copy</button>
+        <div><div class="link-name">Facebook</div><div class="link-url">facebook.com/iamlxwis</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://t.me/iamlxwis" target="_blank" class="link-item reveal d10"
+         style="--item-glow:rgba(0,136,204,.1);--item-border:rgba(0,136,204,.35);--item-accent:#4aa8d4">
+        <div class="link-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.913l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.646z"/></svg>
         </div>
-        <div>
-          <div class="tool-label">Output</div>
-          <div class="tool-output cyan" id="b64Out">Result will appear here…</div>
-        </div>
-      </div>
+        <div><div class="link-name">Telegram</div><div class="link-url">t.me/iamlxwis</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <div class="group-label reveal d10">✨ explore</div>
+
+      <a href="/portfolio" class="link-item reveal d11"
+         style="--item-glow:rgba(57,255,140,.08);--item-border:rgba(57,255,140,.25);--item-accent:#39ff8c">
+        <div class="link-icon-wrap">🧑‍💻</div>
+        <div><div class="link-name">Portfolio</div><div class="link-url">lxwis.site/portfolio</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="/games" class="link-item reveal d12"
+         style="--item-glow:rgba(0,229,255,.08);--item-border:rgba(0,229,255,.25);--item-accent:#00e5ff">
+        <div class="link-icon-wrap">🎮</div>
+        <div><div class="link-name">Games</div><div class="link-url">lxwis.site/games</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="/tools" class="link-item reveal d13"
+         style="--item-glow:rgba(157,110,255,.08);--item-border:rgba(157,110,255,.25);--item-accent:#9d6eff">
+        <div class="link-icon-wrap">🛠️</div>
+        <div><div class="link-name">Tools</div><div class="link-url">lxwis.site/tools</div></div>
+        <span class="link-arrow">↗</span>
+      </a>
+
     </div>
-  </div>
 
-  <!-- LOREM IPSUM TOOL -->
-  <div class="inline-tool reveal-up">
-    <div class="glass-card" style="padding:2rem">
-      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
-        <span style="font-size:1.75rem">📄</span>
-        <div>
-          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Lorem Ipsum Generator</div>
-          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">generate placeholder text instantly</div>
-        </div>
-        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
-      </div>
-      <div class="tool-ui">
-        <div class="tool-row" style="align-items:center">
-          <div>
-            <div class="tool-label">Paragraphs</div>
-            <input type="number" class="tool-input tool-input-single" id="loremCount" value="2" min="1" max="10" style="width:100px;min-height:unset;height:42px" />
-          </div>
-          <div style="display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap">
-            <button class="btn-primary" onclick="genLorem()">Generate</button>
-            <button class="game-btn"    onclick="copyOutput('loremOut')">Copy</button>
-          </div>
-        </div>
-        <div>
-          <div class="tool-label">Output</div>
-          <div class="tool-output" id="loremOut" style="min-height:100px;white-space:pre-wrap">Click Generate…</div>
-        </div>
-      </div>
+    <div class="footer-note reveal">
+      <p>made with 💜 by <a href="/">lxwis</a></p>
+      <p style="margin-top:.25rem">General Santos City, PH · 2025</p>
     </div>
-  </div>
+  </main>
 
-  <!-- COMING SOON TOOLS -->
-  <section class="section" style="padding-top:1rem">
-    <div class="container">
-      <div class="section-label reveal-up"><span class="label-num">→</span><span>coming soon</span></div>
-      <div class="tools-grid">
-        <div class="tool-card glass-card reveal-up delay-1">
-          <span class="tool-tag tag-soon">soon</span>
-          <div class="tool-icon">🎨</div>
-          <div class="tool-title">Color Picker</div>
-          <div class="tool-desc">Pick, convert, and copy colors between HEX, RGB, HSL formats instantly.</div>
-        </div>
-        <div class="tool-card glass-card reveal-up delay-2">
-          <span class="tool-tag tag-soon">soon</span>
-          <div class="tool-icon">🔗</div>
-          <div class="tool-title">URL Encoder</div>
-          <div class="tool-desc">Encode and decode URLs, query strings, and URI components with one click.</div>
-        </div>
-        <div class="tool-card glass-card reveal-up delay-3">
-          <span class="tool-tag tag-soon">soon</span>
-          <div class="tool-icon">⏱️</div>
-          <div class="tool-title">Timestamp Converter</div>
-          <div class="tool-desc">Convert Unix timestamps to human-readable dates and back, in any timezone.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a href="/" class="footer-logo">lxwis<span class="blink">_</span></a>
-      <span class="footer-copy">lxwis.site/tools</span>
-      <div style="display:flex;gap:1.5rem">
-        <a href="/games" class="footer-link">games</a>
-        <a href="/links" class="footer-link">links</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../shared.js"></script>
   <script>
-    // Char counter
-    const ccInput = document.getElementById('ccInput');
-    ccInput.addEventListener('input', () => {
-      const v = ccInput.value;
-      document.getElementById('cc-chars').textContent   = v.length;
-      document.getElementById('cc-words').textContent   = v.trim() ? v.trim().split(/\s+/).length : 0;
-      document.getElementById('cc-lines').textContent   = v ? v.split('\n').length : 0;
-      document.getElementById('cc-nospace').textContent = v.replace(/\s/g,'').length;
-    });
+    const cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+    let mx=-200,my=-200,cx=-200,cy=-200;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'))});
+    (function loop(){cx+=(mx-cx)*.12;cy+=(my-cy)*.12;cur.style.left=cx+'px';cur.style.top=cy+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(loop)})();
 
-    // Base64
-    function doB64(mode) {
-      const val = document.getElementById('b64Input').value.trim();
-      const out = document.getElementById('b64Out');
-      try {
-        out.textContent = mode === 'encode' ? btoa(unescape(encodeURIComponent(val))) : decodeURIComponent(escape(atob(val)));
-      } catch { out.textContent = '❌ Invalid input for ' + mode; }
-    }
+    const bgc=document.getElementById('bg-canvas'),bctx=bgc.getContext('2d');
+    let W,H,pts=[];
+    function resize(){W=bgc.width=innerWidth;H=bgc.height=innerHeight}
+    class P{constructor(){this.reset()}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.22;this.vy=(Math.random()-.5)*.22;this.r=Math.random()*1+.2;this.a=Math.random()*.3+.06;this.c=Math.random()>.5?'157,110,255':'57,255,140'}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}draw(){bctx.beginPath();bctx.arc(this.x,this.y,this.r,0,Math.PI*2);bctx.fillStyle=`rgba(${this.c},${this.a})`;bctx.fill()}}
+    function initBg(){resize();pts=Array.from({length:60},()=>new P())}
+    (function frame(){bctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){bctx.strokeStyle=`rgba(157,110,255,${(1-d/100)*.04})`;bctx.lineWidth=.5;bctx.beginPath();bctx.moveTo(pts[i].x,pts[i].y);bctx.lineTo(pts[j].x,pts[j].y);bctx.stroke()}}pts[i].update();pts[i].draw()}requestAnimationFrame(frame)})();
+    window.addEventListener('resize',initBg,{passive:true});initBg();
 
-    // Lorem ipsum
-    const LOREM_SENTENCES = [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-      'Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.',
-      'Donec eu libero sit amet quam egestas semper.',
-      'Aenean ultricies mi vitae est mauris, placerat eleifend leo.'
-    ];
-    function genLorem() {
-      const n = Math.max(1, Math.min(10, parseInt(document.getElementById('loremCount').value) || 2));
-      const paras = [];
-      for (let i = 0; i < n; i++) {
-        const count = 3 + Math.floor(Math.random() * 4);
-        const sentences = [];
-        for (let j = 0; j < count; j++) sentences.push(LOREM_SENTENCES[Math.floor(Math.random() * LOREM_SENTENCES.length)]);
-        paras.push(sentences.join(' '));
-      }
-      document.getElementById('loremOut').textContent = paras.join('\n\n');
-    }
-    genLorem();
+    const nav=document.getElementById('nav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+    const tog=document.getElementById('navToggle'),mob=document.getElementById('mob');
+    tog.addEventListener('click',()=>{tog.classList.toggle('open');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':''});
+    mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{tog.classList.remove('open');mob.classList.remove('open');document.body.style.overflow=''}));
 
-    // Copy
-    function copyOutput(id) {
-      const el = document.getElementById(id);
-      navigator.clipboard.writeText(el.textContent).then(() => {
-        const t = document.getElementById('copyToast');
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 2000);
-      });
-    }
-
-    // game-btn style for tools page
-    document.querySelectorAll('.game-btn').forEach(b => {
-      b.style.cssText = `
-        font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
-        padding:.75rem 1.25rem;border-radius:4px;cursor:pointer;
-        background:var(--surface);border:1px solid var(--border);
-        color:var(--white);transition:all .25s;
-      `;
-      b.addEventListener('mouseenter', () => { b.style.background='var(--green)'; b.style.color='var(--bg)'; b.style.borderColor='var(--green)'; });
-      b.addEventListener('mouseleave', () => { b.style.background='var(--surface)'; b.style.color='var(--white)'; b.style.borderColor='var(--border)'; });
-    });
+    const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.05});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
