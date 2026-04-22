@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Links — lxwis</title>
+  <meta name="description" content="All of lxwis's links — socials, projects, and everything in between." />
+  <meta property="og:title"       content="Links — lxwis" />
+  <meta property="og:description" content="All of lxwis's links in one place." />
+  <meta property="og:image"       content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
+  <meta property="og:url"         content="https://lxwis.site/links" />
+  <meta name="theme-color"        content="#9d6eff" />
+  <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared.css" />
+  <style>
+    body { --green: #9d6eff; --green-dim: rgba(157,110,255,.12); --border-glow: rgba(157,110,255,.3); }
+
+    .links-page {
+      position:relative; z-index:2;
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; padding:8rem 1.5rem 5rem;
+    }
+
+    /* PROFILE */
+    .profile { display:flex;flex-direction:column;align-items:center;gap:1.25rem;margin-bottom:3rem;text-align:center; }
+    .profile-ring {
+      position:relative; display:inline-block;
+    }
+    .profile-img {
+      width:100px; height:100px; border-radius:50%; object-fit:cover;
+      border:2px solid rgba(157,110,255,.5);
+      box-shadow:0 0 40px rgba(157,110,255,.25);
+    }
+    .profile-ring-anim {
+      position:absolute; inset:-10px; border-radius:50%;
+      border:1px dashed rgba(157,110,255,.3);
+      animation:spin 15s linear infinite;
+    }
+    .profile-ring-anim::before {
+      content:''; position:absolute; top:8px; left:50%;
+      width:6px; height:6px; background:#9d6eff; border-radius:50%;
+      transform:translateX(-50%);
+    }
+    .profile-name { font-family:var(--sans); font-size:2rem; font-weight:800; color:var(--white); letter-spacing:-.03em; }
+    .profile-handle { font-family:var(--mono); font-size:.8rem; color:var(--muted2); letter-spacing:.08em; }
+    .profile-bio {
+      font-size:.9rem; color:var(--text); line-height:1.65;
+      max-width:340px; text-align:center;
+    }
+    .profile-badges { display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center; }
+    .profile-badge {
+      font-family:var(--mono); font-size:.62rem;
+      padding:.25rem .75rem; border-radius:100px;
+      background:var(--surface); border:1px solid var(--border); color:var(--muted2);
+    }
+
+    /* LINKS */
+    .links-list { display:flex;flex-direction:column;gap:.85rem;width:100%;max-width:480px; }
+    .link-section-label {
+      font-family:var(--mono); font-size:.62rem; color:var(--muted); letter-spacing:.15em; text-transform:uppercase;
+      margin-top:1.25rem; margin-bottom:.25rem; padding-left:.25rem;
+    }
+    .link-item {
+      display:flex; align-items:center; gap:1.1rem;
+      padding:1.1rem 1.25rem; border-radius:12px;
+      text-decoration:none; color:var(--white);
+      background:var(--surface); border:1px solid var(--border);
+      transition:all .3s var(--ease-spring);
+      position:relative; overflow:hidden;
+    }
+    .link-item::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(90deg, var(--link-color,rgba(157,110,255,.08)), transparent);
+      opacity:0; transition:opacity .3s;
+    }
+    .link-item:hover { border-color:var(--link-color,rgba(157,110,255,.4)); transform:translateX(6px); }
+    .link-item:hover::before { opacity:1; }
+    .link-icon {
+      width:40px; height:40px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.06); flex-shrink:0;
+      transition:background .25s;
+    }
+    .link-item:hover .link-icon { background:rgba(255,255,255,.1); }
+    .link-info { flex:1; }
+    .link-name { font-family:var(--sans); font-size:.95rem; font-weight:700; color:var(--white); margin-bottom:.15rem; }
+    .link-url  { font-family:var(--mono); font-size:.68rem; color:var(--muted2); }
+    .link-arrow { font-size:.85rem; color:var(--muted); transition:transform .25s, color .25s; }
+    .link-item:hover .link-arrow { transform:translate(3px,-3px); color:var(--link-color,#9d6eff); }
+
+    /* FEATURED LINKS */
+    .link-featured {
+      padding:1.35rem 1.25rem;
+    }
+    .link-featured .link-name { font-size:1rem; }
+
+    /* FOOTER NOTE */
+    .links-footer { margin-top:3rem; font-family:var(--mono); font-size:.68rem; color:var(--muted); text-align:center; line-height:1.75; }
+    .links-footer a { color:#9d6eff; transition:opacity .25s; }
+    .links-footer a:hover { opacity:.7; }
+
+    @media(max-width:480px){ .links-page{padding:7rem 1rem 4rem;} }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise"></div>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">
+      <img src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" alt="lxwis" />
+      lxwis<span class="blink">_</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">home</a></li>
+      <li><a href="/games">games</a></li>
+      <li><a href="/tools">tools</a></li>
+      <li><a href="/links" class="active">links</a></li>
+    </ul>
+    <a href="/" class="nav-cta">← back</a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/"      class="mobile-link">home</a>
+    <a href="/games" class="mobile-link">games</a>
+    <a href="/tools" class="mobile-link">tools</a>
+    <a href="/links" class="mobile-link">links</a>
+  </div>
+
+  <main class="links-page">
+
+    <!-- PROFILE -->
+    <div class="profile reveal-up">
+      <div class="profile-ring">
+        <div class="profile-ring-anim"></div>
+        <img class="profile-img" src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" alt="lxwis" />
+      </div>
+      <div class="profile-name">lxwis</div>
+      <div class="profile-handle">@iamlxwis</div>
+      <p class="profile-bio">Student developer from General Santos City — building real things on the web.</p>
+      <div class="profile-badges">
+        <span class="profile-badge">🎓 SHS Student</span>
+        <span class="profile-badge">💻 Web Dev</span>
+        <span class="profile-badge">🇵🇭 GenSan</span>
+        <span class="profile-badge">🔥 Firebase</span>
+      </div>
+    </div>
+
+    <!-- LINKS LIST -->
+    <div class="links-list reveal-up delay-2">
+
+      <!-- PORTFOLIO -->
+      <div class="link-section-label">🌐 Website</div>
+
+      <a href="https://lxwis.site" target="_blank" class="link-item link-featured glass-card"
+         style="--link-color:rgba(57,255,140,.4)">
+        <div class="link-icon">🏠</div>
+        <div class="link-info">
+          <div class="link-name">Portfolio — lxwis.site</div>
+          <div class="link-url">lxwis.site</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://libnav.lxwis.site" target="_blank" class="link-item"
+         style="--link-color:rgba(0,229,255,.4)">
+        <div class="link-icon">📚</div>
+        <div class="link-info">
+          <div class="link-name">LibNav</div>
+          <div class="link-url">libnav.lxwis.site</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <!-- SOCIALS -->
+      <div class="link-section-label">📱 Socials</div>
+
+      <a href="https://github.com/iamlxwis" target="_blank" class="link-item"
+         style="--link-color:rgba(255,255,255,.3)">
+        <div class="link-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color:#fff"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.461-1.11-1.461-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        </div>
+        <div class="link-info">
+          <div class="link-name">GitHub</div>
+          <div class="link-url">github.com/iamlxwis</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://www.facebook.com/iamlxwis" target="_blank" class="link-item"
+         style="--link-color:rgba(24,119,242,.5)">
+        <div class="link-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </div>
+        <div class="link-info">
+          <div class="link-name">Facebook</div>
+          <div class="link-url">facebook.com/iamlxwis</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="https://t.me/iamlxwis" target="_blank" class="link-item"
+         style="--link-color:rgba(0,136,204,.5)">
+        <div class="link-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.913l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.646z"/></svg>
+        </div>
+        <div class="link-info">
+          <div class="link-name">Telegram</div>
+          <div class="link-url">t.me/iamlxwis</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <!-- EXPLORE -->
+      <div class="link-section-label">✨ More from lxwis</div>
+
+      <a href="/games" class="link-item" style="--link-color:rgba(57,255,140,.4)">
+        <div class="link-icon">🎮</div>
+        <div class="link-info">
+          <div class="link-name">Games</div>
+          <div class="link-url">lxwis.site/games</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a href="/tools" class="link-item" style="--link-color:rgba(0,229,255,.4)">
+        <div class="link-icon">🛠️</div>
+        <div class="link-info">
+          <div class="link-name">Tools</div>
+          <div class="link-url">lxwis.site/tools</div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+    </div>
+
+    <div class="links-footer reveal-up">
+      <p>made with 💜 by <a href="/">lxwis</a></p>
+      <p>lxwis.site · General Santos City, PH</p>
+    </div>
+
+  </main>
+
+  <script src="../shared.js"></script>
+</body>
+</html>
