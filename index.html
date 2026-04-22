@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lxwis — Student Developer</title>
+  <meta name="description" content="lxwis — Student Developer. Portfolio, Games, Tools, and Links." />
+  <meta name="author" content="lxwis" />
+  <meta name="theme-color" content="#39ff8c" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://lxwis.site/" />
+  <meta property="og:title"       content="lxwis — Student Developer" />
+  <meta property="og:description" content="Building real things on the web." />
+  <meta property="og:image"       content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
+  <meta property="og:site_name"   content="lxwis.site" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:image"      content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
+
+  <!-- Favicon -->
+  <link rel="icon"            type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" />
+  <link rel="apple-touch-icon"                  href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=180&fidelity=grand" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #060912;
+      --border: rgba(255,255,255,0.07);
+      --text:   #b0bfd4;
+      --white:  #eef2f7;
+      --muted:  #4a5870;
+      --green:  #39ff8c;
+      --cyan:   #00e5ff;
+      --violet: #9d6eff;
+      --gold:   #f5c542;
+      --mono:   'Space Mono', monospace;
+      --sans:   'Syne', sans-serif;
+      --body:   'Outfit', sans-serif;
+      --ease:   cubic-bezier(0.4, 0, 0.2, 1);
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      overflow-x: hidden;
+      cursor: none;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+    /* CURSOR */
+    .cursor {
+      position: fixed; width: 30px; height: 30px;
+      border: 1.5px solid var(--green); border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: width .3s var(--ease), height .3s var(--ease), background .3s var(--ease);
+      will-change: left, top;
+    }
+    .cursor-dot {
+      position: fixed; width: 5px; height: 5px;
+      background: var(--green); border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+    }
+    .cursor.big { width: 50px; height: 50px; background: rgba(57,255,140,0.1); }
+    @media (pointer: coarse) { .cursor, .cursor-dot { display: none; } body { cursor: auto; } }
+
+    #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .noise {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page {
+      position: relative; z-index: 2;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 4rem 2rem; gap: 3.5rem;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: 1rem;
+    }
+    .intro-logo {
+      width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(57,255,140,0.35);
+      box-shadow: 0 0 40px rgba(57,255,140,0.2);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+    .intro-name {
+      font-family: var(--sans);
+      font-size: clamp(2.8rem, 9vw, 5.5rem);
+      font-weight: 800; letter-spacing: -0.04em;
+      color: var(--white); line-height: 1;
+    }
+    .intro-name .hi { color: var(--green); text-shadow: 0 0 40px rgba(57,255,140,0.5); }
+    .intro-sub {
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--muted); letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .intro-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.66rem;
+      color: var(--green); background: rgba(57,255,140,0.08);
+      border: 1px solid rgba(57,255,140,0.2);
+      border-radius: 100px; padding: 0.28rem 0.85rem;
+      letter-spacing: 0.08em; margin-top: 0.25rem;
+    }
+    .dot-live {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+      animation: pulse 2s ease-out infinite; flex-shrink: 0;
+    }
+
+    /* ── HUB GRID ── */
+    .hub {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+      width: 100%; max-width: 720px;
+    }
+
+    .hub-card {
+      position: relative; overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(14px);
+      padding: 2rem 1.75rem 1.75rem;
+      display: flex; flex-direction: column; gap: 0.9rem;
+      text-decoration: none; color: inherit;
+      transition: transform 0.4s var(--spring), border-color 0.3s var(--ease), box-shadow 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hub-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      border-color: var(--c-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--c-border);
+    }
+
+    /* glow blob */
+    .hub-card::before {
+      content: '';
+      position: absolute; width: 180px; height: 180px; border-radius: 50%;
+      background: var(--c-glow); filter: blur(55px);
+      top: -50px; right: -50px;
+      opacity: 0.2; transition: opacity 0.4s, transform 0.4s;
+    }
+    .hub-card:hover::before { opacity: 0.4; transform: scale(1.4); }
+
+    /* shine */
+    .hub-card::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .hub-card:hover::after { opacity: 1; }
+
+    /* per-card colors */
+    .hub-card[data-p="portfolio"] { --c-glow: #39ff8c; --c-border: rgba(57,255,140,0.35); --c-accent: #39ff8c; }
+    .hub-card[data-p="games"]     { --c-glow: #00e5ff; --c-border: rgba(0,229,255,0.35);  --c-accent: #00e5ff; }
+    .hub-card[data-p="tools"]     { --c-glow: #9d6eff; --c-border: rgba(157,110,255,0.35);--c-accent: #9d6eff; }
+    .hub-card[data-p="links"]     { --c-glow: #f5c542; --c-border: rgba(245,197,66,0.35); --c-accent: #f5c542; }
+
+    .hub-emoji {
+      font-size: 2.2rem; display: inline-block; position: relative; z-index: 1;
+      transition: transform 0.4s var(--spring);
+    }
+    .hub-card:hover .hub-emoji { transform: scale(1.3) rotate(-10deg); }
+
+    .hub-title {
+      font-family: var(--sans); font-size: 1.45rem; font-weight: 800;
+      color: var(--white); letter-spacing: -0.025em;
+      position: relative; z-index: 1;
+    }
+    .hub-desc {
+      font-size: 0.86rem; color: var(--muted); line-height: 1.65; flex: 1;
+      position: relative; z-index: 1;
+    }
+    .hub-cta {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--c-accent); letter-spacing: 0.06em;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      position: relative; z-index: 1;
+      transition: gap 0.25s var(--ease);
+    }
+    .hub-card:hover .hub-cta { gap: 0.7rem; }
+
+    /* ── SOCIALS ROW ── */
+    .socials {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+    }
+    .social-link {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.1em; transition: color 0.25s;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .social-link:hover { color: var(--white); }
+    .sep { color: var(--muted); opacity: 0.3; }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.05s; } .d2 { transition-delay: 0.12s; }
+    .d3 { transition-delay: 0.19s; } .d4 { transition-delay: 0.26s; }
+    .d5 { transition-delay: 0.33s; } .d6 { transition-delay: 0.40s; }
+    .d7 { transition-delay: 0.47s; } .d8 { transition-delay: 0.54s; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes logoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(57,255,140,.5)} 70%{box-shadow:0 0 0 8px rgba(57,255,140,0)} 100%{box-shadow:0 0 0 0 rgba(57,255,140,0)} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .hub { grid-template-columns: 1fr; max-width: 400px; }
+      .hub-card { padding: 1.6rem 1.4rem 1.4rem; }
+      .page { padding: 3rem 1.25rem; gap: 2.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"     id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise"></div>
+
+  <main class="page">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <img class="intro-logo reveal d1"
+           src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand"
+           alt="lxwis" />
+      <h1 class="intro-name reveal d2">lx<span class="hi">wis</span></h1>
+      <p class="intro-sub reveal d3">Student Developer · GenSan, PH</p>
+      <span class="intro-badge reveal d4">
+        <span class="dot-live"></span>
+        available for collabs
+      </span>
+    </div>
+
+    <!-- 4-CARD HUB -->
+    <nav class="hub" aria-label="Sections">
+
+      <a href="/portfolio" class="hub-card reveal d4" data-p="portfolio">
+        <span class="hub-emoji">🧑‍💻</span>
+        <div class="hub-title">Portfolio</div>
+        <p class="hub-desc">My projects, skills, and everything I've built so far.</p>
+        <span class="hub-cta">View →</span>
+      </a>
+
+      <a href="/games" class="hub-card reveal d5" data-p="games">
+        <span class="hub-emoji">🎮</span>
+        <div class="hub-title">Games</div>
+        <p class="hub-desc">Browser games — open and play, no downloads needed.</p>
+        <span class="hub-cta">Play →</span>
+      </a>
+
+      <a href="/tools" class="hub-card reveal d6" data-p="tools">
+        <span class="hub-emoji">🛠️</span>
+        <div class="hub-title">Tools</div>
+        <p class="hub-desc">Lightweight web utilities I built for everyday use.</p>
+        <span class="hub-cta">Open →</span>
+      </a>
+
+      <a href="/links" class="hub-card reveal d7" data-p="links">
+        <span class="hub-emoji">🔗</span>
+        <div class="hub-title">Links</div>
+        <p class="hub-desc">All my socials and profiles in one clean place.</p>
+        <span class="hub-cta">See →</span>
+      </a>
+
+    </nav>
+
+    <!-- SOCIALS -->
+    <div class="socials reveal d8">
+      <a href="https://github.com/iamlxwis"        target="_blank" class="social-link">GitHub</a>
+      <span class="sep">·</span>
+      <a href="https://facebook.com/iamlxwis"      target="_blank" class="social-link">Facebook</a>
+      <span class="sep">·</span>
+      <a href="https://t.me/iamlxwis"              target="_blank" class="social-link">Telegram</a>
+      <span class="sep">·</span>
+      <span style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.08em">lxwis.site © 2025</span>
+    </div>
+
+  </main>
+
+  <script>
+    // CURSOR
+    const cur = document.getElementById('cursor');
+    const dot = document.getElementById('cursorDot');
+    let mx = -200, my = -200, cx = -200, cy = -200;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.querySelectorAll('a').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+    (function loop() {
+      cx += (mx - cx) * 0.12; cy += (my - cy) * 0.12;
+      cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+    // PARTICLES
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, pts = [];
+    function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+    class P {
+      constructor() { this.reset(true); }
+      reset(rand) {
+        this.x = rand ? Math.random() * w : (Math.random() > .5 ? 0 : w);
+        this.y = rand ? Math.random() * h : Math.random() * h;
+        this.vx = (Math.random() - .5) * .25; this.vy = (Math.random() - .5) * .25;
+        this.r  = Math.random() * 1.1 + .2;
+        this.a  = Math.random() * .4 + .07;
+        this.c  = Math.random() > .6 ? '57,255,140' : '0,229,255';
+      }
+      update() { this.x += this.vx; this.y += this.vy; if(this.x<0||this.x>w||this.y<0||this.y>h) this.reset(false); }
+      draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(${this.c},${this.a})`; ctx.fill(); }
+    }
+    function init() { resize(); pts = Array.from({length:70},()=>new P()); }
+    (function frame() {
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<pts.length;i++) {
+        for(let j=i+1;j<pts.length;j++) {
+          const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<110){ ctx.strokeStyle=`rgba(57,255,140,${.05*(1-d/110)})`; ctx.lineWidth=.5; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
+        }
+        pts[i].update(); pts[i].draw();
+      }
+      requestAnimationFrame(frame);
+    })();
+    window.addEventListener('resize', init, {passive:true});
+    init();
+
+    // REVEAL
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold: 0.05});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
