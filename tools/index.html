@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools — lxwis.site</title>
+  <meta name="description" content="Web utilities by lxwis — lightweight tools you can use right in your browser." />
+  <meta property="og:title"       content="Tools — lxwis.site" />
+  <meta property="og:description" content="Lightweight web utilities — open and use instantly." />
+  <meta property="og:image"       content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" />
+  <meta property="og:url"         content="https://lxwis.site/tools" />
+  <meta name="theme-color"        content="#00e5ff" />
+  <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared.css" />
+  <style>
+    :root { --accent: var(--cyan); --accent-dim: rgba(0,229,255,0.12); }
+
+    .page-hero { position:relative;z-index:2; padding:10rem 2.5rem 5rem; text-align:center; }
+    .page-eyebrow {
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-family:var(--mono);font-size:.7rem;color:var(--muted2);
+      border:1px solid var(--border);border-radius:100px;
+      padding:.38rem 1rem;margin-bottom:2rem;letter-spacing:.1em;
+    }
+    .page-title { font-family:var(--sans);font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.04em;color:var(--white);margin-bottom:1rem; }
+    .page-title span { color:var(--cyan); }
+    .page-sub { font-family:var(--mono);font-size:.88rem;color:var(--muted2);max-width:520px;margin:0 auto 3rem;line-height:1.75; }
+
+    /* TOOLS GRID */
+    .tools-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem; }
+    .tool-card { padding:2rem;display:flex;flex-direction:column;gap:1.25rem;position:relative;overflow:hidden; }
+    .tool-card::before {
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 10% 90%, var(--card-glow,rgba(0,229,255,.07)),transparent 60%);
+      opacity:0;transition:opacity .4s;
+    }
+    .tool-card:hover::before { opacity:1; }
+    .tool-tag {
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-family:var(--mono);font-size:.6rem;
+      padding:.15rem .55rem;border-radius:100px;
+      width:fit-content;
+    }
+    .tag-live { color:var(--cyan);background:var(--accent-dim);border:1px solid rgba(0,229,255,.2); }
+    .tag-soon { color:var(--muted2);background:var(--surface);border:1px solid var(--border); }
+    .tool-icon { font-size:2.2rem; }
+    .tool-title { font-family:var(--sans);font-size:1.2rem;font-weight:800;color:var(--white); }
+    .tool-desc { font-size:.88rem;color:var(--muted2);line-height:1.65;flex:1; }
+    .tool-action { align-self:flex-start; }
+
+    /* INLINE TOOLS */
+    .inline-tool { position:relative;z-index:2;max-width:800px;margin:0 auto;padding:0 2.5rem 3rem; }
+    .tool-ui { display:flex;flex-direction:column;gap:1rem; }
+    .tool-label { font-family:var(--mono);font-size:.72rem;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase; }
+    .tool-input {
+      width:100%;padding:.85rem 1rem;background:var(--surface);
+      border:1px solid var(--border);border-radius:8px;
+      color:var(--white);font-family:var(--mono);font-size:.88rem;
+      outline:none;transition:border-color .25s;
+      resize:vertical;min-height:80px;
+    }
+    .tool-input:focus { border-color:var(--cyan); }
+    .tool-input-single { height:auto;resize:none;min-height:unset; }
+    .tool-row { display:flex;gap:.75rem;flex-wrap:wrap; }
+    .tool-output {
+      width:100%;padding:1rem;background:rgba(0,0,0,.3);
+      border:1px solid var(--border);border-radius:8px;
+      color:var(--green);font-family:var(--mono);font-size:.85rem;
+      line-height:1.75;min-height:60px;word-break:break-all;
+    }
+    .tool-output.cyan { color:var(--cyan); }
+    .copy-toast {
+      position:fixed;bottom:2rem;right:2rem;z-index:9999;
+      background:var(--green);color:var(--bg);
+      font-family:var(--mono);font-size:.75rem;font-weight:700;
+      padding:.6rem 1.25rem;border-radius:6px;
+      transform:translateY(80px);opacity:0;
+      transition:transform .3s var(--ease-spring),opacity .3s;
+    }
+    .copy-toast.show { transform:translateY(0);opacity:1; }
+
+    @media(max-width:640px){.page-hero{padding:8rem 1.25rem 3rem;}.inline-tool{padding:0 1.25rem 2rem;}}
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise"></div>
+  <div class="copy-toast" id="copyToast">Copied!</div>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">
+      <img src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand" alt="lxwis" />
+      lxwis<span class="blink">_</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">home</a></li>
+      <li><a href="/games">games</a></li>
+      <li><a href="/tools" class="active">tools</a></li>
+      <li><a href="/links">links</a></li>
+    </ul>
+    <a href="/" class="nav-cta">← back</a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/"      class="mobile-link">home</a>
+    <a href="/games" class="mobile-link">games</a>
+    <a href="/tools" class="mobile-link">tools</a>
+    <a href="/links" class="mobile-link">links</a>
+  </div>
+
+  <div class="page-hero">
+    <div class="page-eyebrow reveal-up">🛠️ lxwis.site/tools</div>
+    <h1 class="page-title reveal-up delay-1">Web <span>Tools</span></h1>
+    <p class="page-sub reveal-up delay-2">Lightweight utilities — open, use, done. No login, no nonsense.</p>
+  </div>
+
+  <!-- CHAR COUNTER TOOL -->
+  <div class="inline-tool reveal-up delay-3">
+    <div class="glass-card" style="padding:2rem">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
+        <span style="font-size:1.75rem">📝</span>
+        <div>
+          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Character Counter</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">count chars, words, lines — instantly</div>
+        </div>
+        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
+      </div>
+      <div class="tool-ui">
+        <div>
+          <div class="tool-label">Your text</div>
+          <textarea class="tool-input" id="ccInput" placeholder="Paste or type anything here…" rows="5"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
+          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
+            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--cyan)" id="cc-chars">0</span>
+            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">CHARS</span>
+          </div>
+          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
+            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--green)" id="cc-words">0</span>
+            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">WORDS</span>
+          </div>
+          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
+            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--violet)" id="cc-lines">0</span>
+            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">LINES</span>
+          </div>
+          <div class="glass-card" style="padding:.85rem;text-align:center;gap:.3rem;display:flex;flex-direction:column">
+            <span style="font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--gold)" id="cc-nospace">0</span>
+            <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted2)">NO SPACE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASE64 TOOL -->
+  <div class="inline-tool reveal-up">
+    <div class="glass-card" style="padding:2rem">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
+        <span style="font-size:1.75rem">🔐</span>
+        <div>
+          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Base64 Encoder/Decoder</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">encode or decode base64 strings</div>
+        </div>
+        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
+      </div>
+      <div class="tool-ui">
+        <div>
+          <div class="tool-label">Input</div>
+          <textarea class="tool-input" id="b64Input" placeholder="Type text to encode, or base64 to decode…" rows="3"></textarea>
+        </div>
+        <div class="tool-row">
+          <button class="btn-primary" onclick="doB64('encode')">Encode →</button>
+          <button class="btn-ghost"   onclick="doB64('decode')">← Decode</button>
+          <button class="game-btn"    onclick="copyOutput('b64Out')">Copy</button>
+        </div>
+        <div>
+          <div class="tool-label">Output</div>
+          <div class="tool-output cyan" id="b64Out">Result will appear here…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOREM IPSUM TOOL -->
+  <div class="inline-tool reveal-up">
+    <div class="glass-card" style="padding:2rem">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem">
+        <span style="font-size:1.75rem">📄</span>
+        <div>
+          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--white)">Lorem Ipsum Generator</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted2)">generate placeholder text instantly</div>
+        </div>
+        <span class="tool-tag tag-live" style="margin-left:auto">live</span>
+      </div>
+      <div class="tool-ui">
+        <div class="tool-row" style="align-items:center">
+          <div>
+            <div class="tool-label">Paragraphs</div>
+            <input type="number" class="tool-input tool-input-single" id="loremCount" value="2" min="1" max="10" style="width:100px;min-height:unset;height:42px" />
+          </div>
+          <div style="display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap">
+            <button class="btn-primary" onclick="genLorem()">Generate</button>
+            <button class="game-btn"    onclick="copyOutput('loremOut')">Copy</button>
+          </div>
+        </div>
+        <div>
+          <div class="tool-label">Output</div>
+          <div class="tool-output" id="loremOut" style="min-height:100px;white-space:pre-wrap">Click Generate…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMING SOON TOOLS -->
+  <section class="section" style="padding-top:1rem">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="label-num">→</span><span>coming soon</span></div>
+      <div class="tools-grid">
+        <div class="tool-card glass-card reveal-up delay-1">
+          <span class="tool-tag tag-soon">soon</span>
+          <div class="tool-icon">🎨</div>
+          <div class="tool-title">Color Picker</div>
+          <div class="tool-desc">Pick, convert, and copy colors between HEX, RGB, HSL formats instantly.</div>
+        </div>
+        <div class="tool-card glass-card reveal-up delay-2">
+          <span class="tool-tag tag-soon">soon</span>
+          <div class="tool-icon">🔗</div>
+          <div class="tool-title">URL Encoder</div>
+          <div class="tool-desc">Encode and decode URLs, query strings, and URI components with one click.</div>
+        </div>
+        <div class="tool-card glass-card reveal-up delay-3">
+          <span class="tool-tag tag-soon">soon</span>
+          <div class="tool-icon">⏱️</div>
+          <div class="tool-title">Timestamp Converter</div>
+          <div class="tool-desc">Convert Unix timestamps to human-readable dates and back, in any timezone.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="/" class="footer-logo">lxwis<span class="blink">_</span></a>
+      <span class="footer-copy">lxwis.site/tools</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="/games" class="footer-link">games</a>
+        <a href="/links" class="footer-link">links</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../shared.js"></script>
+  <script>
+    // Char counter
+    const ccInput = document.getElementById('ccInput');
+    ccInput.addEventListener('input', () => {
+      const v = ccInput.value;
+      document.getElementById('cc-chars').textContent   = v.length;
+      document.getElementById('cc-words').textContent   = v.trim() ? v.trim().split(/\s+/).length : 0;
+      document.getElementById('cc-lines').textContent   = v ? v.split('\n').length : 0;
+      document.getElementById('cc-nospace').textContent = v.replace(/\s/g,'').length;
+    });
+
+    // Base64
+    function doB64(mode) {
+      const val = document.getElementById('b64Input').value.trim();
+      const out = document.getElementById('b64Out');
+      try {
+        out.textContent = mode === 'encode' ? btoa(unescape(encodeURIComponent(val))) : decodeURIComponent(escape(atob(val)));
+      } catch { out.textContent = '❌ Invalid input for ' + mode; }
+    }
+
+    // Lorem ipsum
+    const LOREM_SENTENCES = [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
+      'Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.',
+      'Donec eu libero sit amet quam egestas semper.',
+      'Aenean ultricies mi vitae est mauris, placerat eleifend leo.'
+    ];
+    function genLorem() {
+      const n = Math.max(1, Math.min(10, parseInt(document.getElementById('loremCount').value) || 2));
+      const paras = [];
+      for (let i = 0; i < n; i++) {
+        const count = 3 + Math.floor(Math.random() * 4);
+        const sentences = [];
+        for (let j = 0; j < count; j++) sentences.push(LOREM_SENTENCES[Math.floor(Math.random() * LOREM_SENTENCES.length)]);
+        paras.push(sentences.join(' '));
+      }
+      document.getElementById('loremOut').textContent = paras.join('\n\n');
+    }
+    genLorem();
+
+    // Copy
+    function copyOutput(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.textContent).then(() => {
+        const t = document.getElementById('copyToast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+      });
+    }
+
+    // game-btn style for tools page
+    document.querySelectorAll('.game-btn').forEach(b => {
+      b.style.cssText = `
+        font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+        padding:.75rem 1.25rem;border-radius:4px;cursor:pointer;
+        background:var(--surface);border:1px solid var(--border);
+        color:var(--white);transition:all .25s;
+      `;
+      b.addEventListener('mouseenter', () => { b.style.background='var(--green)'; b.style.color='var(--bg)'; b.style.borderColor='var(--green)'; });
+      b.addEventListener('mouseleave', () => { b.style.background='var(--surface)'; b.style.color='var(--white)'; b.style.borderColor='var(--border)'; });
+    });
+  </script>
+</body>
+</html>
