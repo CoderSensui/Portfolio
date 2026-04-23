@@ -484,56 +484,51 @@
       flex-direction: column;
       gap: 1.25rem;
     }
-    .skills-card {
-      padding: 1.5rem;
+    
+    /* ── NEW IDE-STYLE CODE WINDOW ── */
+    .code-window {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
-    .card-header {
+    .code-header {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border);
     }
-    .card-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .card-dot.red { background: #ff5f56; }
-    .card-dot.yellow { background: #ffbd2e; }
-    .card-dot.green { background: #27c93f; }
-    .card-title-sm {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
+    .mac-dots { display: flex; gap: 6px; }
+    .mac-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .mac-dot.close { background: #ff5f56; }
+    .mac-dot.min { background: #ffbd2e; }
+    .mac-dot.max { background: #27c93f; }
+    .code-title {
+      margin: 0 auto;
       color: var(--muted2);
-      margin-left: 0.5rem;
-    }
-    .skills-body { display: flex; flex-direction: column; gap: 1rem; }
-    .skill-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .skill-key {
-      font-family: var(--font-mono);
       font-size: 0.75rem;
-      color: var(--cyan);
+      letter-spacing: 0.05em;
     }
-    .skill-colon {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--muted);
+    .code-body {
+      padding: 1.25rem 1rem;
+      color: #c9d1d9;
+      overflow-x: auto; /* Ensures it scrolls gracefully on tiny screens */
     }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-    }
-    .accent-tag {
-      background: var(--green-dim);
-      border-color: rgba(57,255,140,0.3);
-      color: var(--green);
-    }
+    .code-line { display: flex; gap: 1rem; }
+    .line-num { color: #484f58; user-select: none; text-align: right; min-width: 1.5rem; }
+    .code-content { white-space: pre; }
+    
+    /* Syntax Highlighting Colors */
+    .syntax-key { color: #79c0ff; }
+    .syntax-string { color: #a5d6ff; }
+    .syntax-punct { color: #c9d1d9; }
+    .syntax-comment { color: #8b949e; font-style: italic; }
+
     .about-card {
       display: flex;
       align-items: center;
@@ -553,7 +548,6 @@
       color: var(--muted2);
     }
 
-    /* Avatar styling carried over from original index.html */
     .avatar-wrap { position: relative; display: flex; justify-content: center; }
     .avatar { width: 240px; height: 240px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(57,255,140,0.3); box-shadow: 0 0 60px rgba(57,255,140,0.15); }
     .avatar-ring { position: absolute; inset: -14px; border-radius: 50%; border: 1px dashed rgba(57,255,140,0.2); animation: spin 20s linear infinite; }
@@ -691,43 +685,6 @@
       transition: letter-spacing var(--transition);
     }
     .project-cta:hover { letter-spacing: 0.05em; }
-
-    /* Ghost card */
-    .ghost-card {
-      min-height: 300px;
-      border-style: dashed;
-      border-color: rgba(255,255,255,0.06);
-    }
-    .ghost-inner {
-      height: 100%;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .ghost-icon { font-size: 2rem; opacity: 0.4; animation: float 3s ease-in-out infinite; }
-    .ghost-text {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.6;
-    }
-    .ghost-dots {
-      display: flex;
-      gap: 0.4rem;
-    }
-    .ghost-dots span {
-      width: 5px;
-      height: 5px;
-      background: var(--muted);
-      border-radius: 50%;
-      animation: ghostPulse 1.4s ease-in-out infinite;
-    }
-    .ghost-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .ghost-dots span:nth-child(3) { animation-delay: 0.4s; }
 
     /* ── CONTACT ── */
     .contact-grid {
@@ -873,10 +830,6 @@
       0% { top: -100%; }
       100% { top: 100%; }
     }
-    @keyframes ghostPulse {
-      0%, 80%, 100% { transform: scale(1); opacity: 0.4; }
-      40% { transform: scale(1.3); opacity: 1; }
-    }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
@@ -952,9 +905,9 @@
         <a href="#contact" class="btn-ghost">Get in touch</a>
       </div>
       <div class="hero-stats reveal-up delay-6">
-        <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-label">Projects Live</span></div>
+        <div class="stat"><span class="stat-num" data-count="2">2</span><span class="stat-label">Projects Live</span></div>
         <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num" data-count="2025">2025</span><span class="stat-label">Building Since</span></div>
+        <div class="stat"><span class="stat-num" data-count="2022">2022</span><span class="stat-label">Building Since</span></div>
         <div class="stat-divider"></div>
         <div class="stat"><span class="stat-num" style="color:var(--green)">∞</span><span class="stat-label">Always Learning</span></div>
       </div>
@@ -975,35 +928,28 @@
           <p>Currently at Notre Dame-Siena College of GenSan, focused on mastering the fundamentals while shipping projects that solve actual problems for actual people.</p>
           <a href="/" class="btn-link">Back to lxwis.site ↗</a>
           
-          <div class="glass-card skills-card reveal-up delay-2" style="margin-top:2rem">
-            <div class="card-header">
-              <div class="card-dot red"></div>
-              <div class="card-dot yellow"></div>
-              <div class="card-dot green"></div>
-              <span class="card-title-sm">skills.json</span>
+          <div class="code-window reveal-up delay-2" style="margin-top:2.5rem">
+            <div class="code-header">
+              <div class="mac-dots">
+                <div class="mac-dot close"></div>
+                <div class="mac-dot min"></div>
+                <div class="mac-dot max"></div>
+              </div>
+              <div class="code-title">skills.json</div>
+              <div style="width: 42px;"></div>
             </div>
-            <div class="skills-body">
-              <div class="skill-group">
-                <div><span class="skill-key">"languages"</span><span class="skill-colon">:</span> [</div>
-                <div class="skill-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
-                <div><span class="skill-colon">],</span></div>
-              </div>
-              <div class="skill-group">
-                <div><span class="skill-key">"tools"</span><span class="skill-colon">:</span> [</div>
-                <div class="skill-tags"><span class="tag">Firebase</span><span class="tag">Vercel</span><span class="tag">Git</span><span class="tag">Node.js</span></div>
-                <div><span class="skill-colon">],</span></div>
-              </div>
-              <div class="skill-group">
-                <div><span class="skill-key">"building"</span><span class="skill-colon">:</span> [</div>
-                <div class="skill-tags"><span class="tag">REST APIs</span><span class="tag">Bots</span><span class="tag">Web Apps</span></div>
-                <div><span class="skill-colon">],</span></div>
-              </div>
-              <div class="skill-group">
-                <div><span class="skill-key">"status"</span><span class="skill-colon">:</span> <span class="tag accent-tag">"shipping lxwis API"</span></div>
-              </div>
+            <div class="code-body">
+              <div class="code-line"><span class="line-num">1</span><span class="code-content"><span class="syntax-punct">{</span></span></div>
+              <div class="code-line"><span class="line-num">2</span><span class="code-content">  <span class="syntax-key">"identity"</span><span class="syntax-punct">:</span> <span class="syntax-string">"lxwis"</span><span class="syntax-punct">,</span></span></div>
+              <div class="code-line"><span class="line-num">3</span><span class="code-content">  <span class="syntax-key">"role"</span><span class="syntax-punct">:</span> <span class="syntax-string">"Student Developer"</span><span class="syntax-punct">,</span></span></div>
+              <div class="code-line"><span class="line-num">4</span><span class="code-content">  <span class="syntax-key">"languages"</span><span class="syntax-punct">:</span> <span class="syntax-punct">[</span><span class="syntax-string">"HTML"</span><span class="syntax-punct">,</span> <span class="syntax-string">"CSS"</span><span class="syntax-punct">,</span> <span class="syntax-string">"JavaScript"</span><span class="syntax-punct">],</span></span></div>
+              <div class="code-line"><span class="line-num">5</span><span class="code-content">  <span class="syntax-key">"stack"</span><span class="syntax-punct">:</span> <span class="syntax-punct">[</span><span class="syntax-string">"Firebase"</span><span class="syntax-punct">,</span> <span class="syntax-string">"Node.js"</span><span class="syntax-punct">,</span> <span class="syntax-string">"Vercel"</span><span class="syntax-punct">],</span></span></div>
+              <div class="code-line"><span class="line-num">6</span><span class="code-content">  <span class="syntax-key">"building"</span><span class="syntax-punct">:</span> <span class="syntax-punct">[</span><span class="syntax-string">"Web Apps"</span><span class="syntax-punct">,</span> <span class="syntax-string">"REST APIs"</span><span class="syntax-punct">,</span> <span class="syntax-string">"Bots"</span><span class="syntax-punct">],</span></span></div>
+              <div class="code-line"><span class="line-num">7</span><span class="code-content">  <span class="syntax-key">"status"</span><span class="syntax-punct">:</span> <span class="syntax-string" style="color:var(--green)">"Shipping lxwis API"</span> <span class="syntax-comment">// Coming soon</span></span></div>
+              <div class="code-line"><span class="line-num">8</span><span class="code-content"><span class="syntax-punct">}</span></span></div>
             </div>
           </div>
-        </div>
+          </div>
         <div class="about-right reveal-up delay-2">
           <div class="avatar-wrap">
             <div class="avatar-ring"></div>
@@ -1057,12 +1003,35 @@
           </div>
         </article>
         
-        <article class="project-card glass-card reveal-up delay-3" onclick="window.open('https://api.lxwis.site','_blank')" style="cursor:pointer">
+        <article class="project-card glass-card reveal-up delay-3" onclick="window.scrollTo({top:0, behavior:'smooth'})" style="cursor:pointer">
           <div class="project-top">
             <div class="project-meta">
               <span class="project-id">02</span>
-              <span class="live-badge" style="color:var(--cyan);border-color:rgba(0,229,255,.2);background:rgba(0,229,255,.1);">🔧 wip</span>
+              <span class="live-badge"><span class="dot live small"></span>live</span>
               <span class="project-year">2025</span>
+            </div>
+            <span class="project-link-icon">↗</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">lxwis.site</h3>
+            <p class="project-tagline">Personal Portfolio</p>
+            <p class="project-desc">The site you are looking at right now. A custom-built portfolio showcasing my journey, projects, and skills as a developer.</p>
+            <p class="project-long">Features custom particle physics backgrounds, smooth scroll reveals, custom cursors, and responsive glassmorphism UI elements built entirely from scratch without heavy frontend frameworks.</p>
+          </div>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Canvas API</span>
+            </div>
+            <span class="project-cta">You are here</span>
+          </div>
+        </article>
+
+        <article class="project-card glass-card reveal-up delay-4" onclick="window.open('https://api.lxwis.site','_blank')" style="cursor:pointer">
+          <div class="project-top">
+            <div class="project-meta">
+              <span class="project-id">03</span>
+              <span class="live-badge" style="color:var(--cyan);border-color:rgba(0,229,255,.2);background:rgba(0,229,255,.1);">🔧 wip</span>
+              <span class="project-year">Upcoming</span>
             </div>
             <span class="project-link-icon" style="color:var(--cyan);border-color:rgba(0,229,255,.2)">↗</span>
           </div>
@@ -1077,14 +1046,6 @@
               <span class="tech-tag">Node.js</span><span class="tech-tag">Vercel Functions</span><span class="tech-tag">REST API</span><span class="tech-tag">Express</span>
             </div>
             <span class="project-cta" style="color:var(--cyan)">View Docs ↗</span>
-          </div>
-        </article>
-        
-        <article class="project-card glass-card ghost-card reveal-up delay-4">
-          <div class="ghost-inner">
-            <div class="ghost-icon">⚡</div>
-            <p class="ghost-text">Next project<br>loading…</p>
-            <div class="ghost-dots"><span></span><span></span><span></span></div>
           </div>
         </article>
         
