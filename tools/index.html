@@ -3,91 +3,104 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Links — lxwis</title>
-  <meta name="description" content="All of lxwis's links — socials, projects, everything."/>
-  <meta property="og:title" content="Links — lxwis"/>
+  <title>Tools — lxwis.site</title>
+  <meta name="description" content="Web utilities by lxwis — lightweight browser tools."/>
+  <meta property="og:title" content="Tools — lxwis.site"/>
   <meta property="og:image" content="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand"/>
-  <meta name="theme-color" content="#9d6eff"/>
+  <meta name="theme-color" content="#00e5ff"/>
   <link rel="icon" type="image/webp" href="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=64&fidelity=grand"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#060912;--bd:rgba(255,255,255,.07);--g:#39ff8c;--gd:rgba(57,255,140,.1);--cy:#00e5ff;--vi:#9d6eff;--vd:rgba(157,110,255,.12);--ro:#ff6b8a;--go:#f5c542;--w:#edf2f7;--tx:#a8bcd4;--mu:#3d4f66;--mu2:#607080;--mo:'Space Mono',monospace;--sa:'Syne',sans-serif;--bo:'Outfit',sans-serif;--ease:cubic-bezier(.4,0,.2,1);--sp:cubic-bezier(.34,1.56,.64,1);--t:.3s}
+    :root{--bg:#06090f;--sur:rgba(255,255,255,.038);--bd:rgba(255,255,255,.08);--g:#39ff8c;--gd:rgba(57,255,140,.12);--cy:#00e5ff;--cyd:rgba(0,229,255,.12);--vi:#9d6eff;--ro:#ff6b8a;--go:#f5c542;--w:#edf2f7;--tx:#a8bcd4;--mu:#3d4f66;--mu2:#607080;--mo:'Space Mono',monospace;--sa:'Syne',sans-serif;--bo:'Outfit',sans-serif;--ease:cubic-bezier(.4,0,.2,1);--sp:cubic-bezier(.34,1.56,.64,1);--t:.3s}
     html{font-size:16px}
-    body{background:var(--bg);color:var(--tx);font-family:var(--bo);overflow-x:hidden;cursor:none;min-height:100vh}
+    body{background:var(--bg);color:var(--tx);font-family:var(--bo);overflow-x:hidden;min-height:100vh}
     a{text-decoration:none;color:inherit}
-    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--vi);border-radius:2px}
-    .cursor{position:fixed;width:30px;height:30px;border:1.5px solid var(--vi);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;will-change:left,top}
-    .cursor-dot{position:fixed;width:5px;height:5px;background:var(--vi);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
-    .cursor.big{width:50px;height:50px;background:var(--vd)}
-    @media(pointer:coarse){.cursor,.cursor-dot{display:none}body{cursor:auto}}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--cy);border-radius:2px}
+    @media(pointer:fine){body{cursor:none}}
+    .cursor{display:none;position:fixed;width:30px;height:30px;border:1.5px solid var(--cy);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;will-change:left,top}
+    .cursor-dot{display:none;position:fixed;width:5px;height:5px;background:var(--cy);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
+    .cursor.big{width:50px;height:50px;background:var(--cyd)}
+    @media(pointer:fine){.cursor,.cursor-dot{display:block}}
     #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
-
     nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;gap:1.5rem;padding:1.2rem 2.5rem;transition:background .4s,border-bottom .4s}
-    nav.scrolled{background:rgba(6,9,18,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
+    nav.scrolled{background:rgba(6,9,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
     .nav-logo{font-family:var(--mo);font-size:1rem;letter-spacing:.05em;margin-right:auto}
-    .nav-logo .lx{color:var(--w)}.nav-logo .wis{color:var(--g)}.nav-logo .blink{color:var(--g);animation:blink 1s step-end infinite}
+    .nav-logo .lx{color:var(--w)}.nav-logo .wis{color:var(--g)}.blink{animation:blink 1s step-end infinite;color:var(--g)}
     .nav-links{display:flex;gap:1.75rem}
     .nav-links a{font-family:var(--mo);font-size:.74rem;color:var(--mu2);letter-spacing:.1em;position:relative;transition:color var(--t)}
-    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--vi);transition:width var(--t)}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--cy);transition:width var(--t)}
     .nav-links a:hover,.nav-links a.active{color:var(--w)}.nav-links a:hover::after,.nav-links a.active::after{width:100%}
-    .nav-back{font-family:var(--mo);font-size:.72rem;color:var(--vi);border:1px solid rgba(157,110,255,.3);padding:.42rem .9rem;border-radius:4px;transition:background var(--t),color var(--t)}
-    .nav-back:hover{background:var(--vi);color:#fff}
+    .nav-back{font-family:var(--mo);font-size:.72rem;color:var(--cy);border:1px solid rgba(0,229,255,.28);padding:.42rem .9rem;border-radius:4px;transition:background var(--t),color var(--t)}
+    .nav-back:hover{background:var(--cy);color:var(--bg)}
     .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
     .nav-toggle span{display:block;width:22px;height:1.5px;background:var(--w);transition:var(--t)}
     .nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.nav-toggle.open span:nth-child(2){opacity:0}.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    .mob{position:fixed;inset:0;z-index:999;background:rgba(6,9,18,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transform:translateX(100%);transition:transform .45s var(--ease)}
+    .mob{position:fixed;inset:0;z-index:999;background:rgba(6,9,15,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transform:translateX(100%);transition:transform .45s var(--ease)}
     .mob.open{transform:translateX(0)}
-    .mob a{font-family:var(--sa);font-size:2.2rem;font-weight:800;color:var(--w);transition:color var(--t)}.mob a:hover{color:var(--vi)}
-
-    .page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:7rem 1.5rem 5rem;gap:0}
-
-    .profile{display:flex;flex-direction:column;align-items:center;gap:1.1rem;margin-bottom:3rem;text-align:center}
-    .avatar-ring{position:relative;display:inline-block;margin-bottom:.25rem}
-    .avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid rgba(157,110,255,.45);box-shadow:0 0 50px rgba(157,110,255,.25);display:block}
-    .ring-orbit{position:absolute;inset:-12px;border-radius:50%;border:1px dashed rgba(157,110,255,.25);animation:spin 16s linear infinite}
-    .ring-orbit::before{content:'';position:absolute;top:9px;left:50%;width:6px;height:6px;background:var(--vi);border-radius:50%;transform:translateX(-50%);box-shadow:0 0 8px var(--vi)}
-    .profile-name{font-family:var(--sa);font-size:2.2rem;font-weight:800;letter-spacing:-.035em;color:var(--w)}
-    .profile-name .lx{color:var(--w)}.profile-name .wis{color:var(--g)}
-    .profile-handle{font-family:var(--mo);font-size:.72rem;color:var(--mu2);letter-spacing:.1em}
-    .profile-bio{font-size:.9rem;color:var(--tx);line-height:1.65;max-width:320px}
-    .badges{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.25rem}
-    .badge{font-family:var(--mo);font-size:.58rem;padding:.22rem .65rem;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--mu2);letter-spacing:.06em}
-
-    .links-container{width:100%;max-width:460px;display:flex;flex-direction:column;gap:.7rem}
-
-    .group-label{font-family:var(--mo);font-size:.58rem;color:var(--mu);letter-spacing:.18em;text-transform:uppercase;padding-left:.25rem;margin-top:.75rem;margin-bottom:.1rem}
-
-    .link-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--bd);text-decoration:none;color:var(--w);position:relative;overflow:hidden;transition:transform .35s var(--sp),border-color var(--t),box-shadow var(--t)}
-    .link-item::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,var(--item-glow,transparent),transparent 60%);opacity:0;transition:opacity .35s}
-    .link-item:hover::before{opacity:1}
-    .link-item:hover{transform:translateX(8px);border-color:var(--item-border,rgba(157,110,255,.3));box-shadow:0 8px 32px rgba(0,0,0,.4)}
-    .link-item:hover .link-arrow{opacity:1;transform:translate(3px,-3px)}
-    .link-item:hover .link-name{color:var(--item-accent,var(--vi))}
-
-    .link-icon-wrap{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;transition:background .25s}
-    .link-item:hover .link-icon-wrap{background:rgba(255,255,255,.1)}
-    .link-name{font-family:var(--sa);font-size:.95rem;font-weight:700;margin-bottom:.12rem;transition:color var(--t)}
-    .link-url{font-family:var(--mo);font-size:.62rem;color:var(--mu2)}
-    .link-arrow{margin-left:auto;font-size:.82rem;color:var(--mu);opacity:0;transition:opacity var(--t),transform var(--t);flex-shrink:0}
-
-    .link-featured{padding:1.2rem 1.4rem}
-    .link-featured .link-name{font-size:1.05rem}
-
-    .footer-note{margin-top:3rem;font-family:var(--mo);font-size:.62rem;color:var(--mu);text-align:center;line-height:1.8}
-    .footer-note a{color:var(--vi);transition:opacity .2s}.footer-note a:hover{opacity:.7}
-
-    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}.reveal.in{opacity:1;transform:translateY(0)}
-    .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
-    .d5{transition-delay:.3s}.d6{transition-delay:.36s}.d7{transition-delay:.42s}.d8{transition-delay:.48s}.d9{transition-delay:.54s}.d10{transition-delay:.6s}.d11{transition-delay:.66s}.d12{transition-delay:.72s}.d13{transition-delay:.78s}
-
+    .mob a{font-family:var(--sa);font-size:2.2rem;font-weight:800;color:var(--w);transition:color var(--t)}.mob a:hover{color:var(--cy)}
+    .page-hero{position:relative;z-index:2;padding:9rem 2.5rem 4rem;text-align:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--mo);font-size:.68rem;color:var(--mu2);border:1px solid var(--bd);border-radius:100px;padding:.34rem .9rem;margin-bottom:1.75rem;letter-spacing:.1em}
+    .page-title{font-family:var(--sa);font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;letter-spacing:-.04em;color:var(--w);margin-bottom:.85rem;line-height:1}
+    .page-title .hi{color:var(--cy)}
+    .page-sub{font-family:var(--mo);font-size:.82rem;color:var(--mu2);max-width:480px;margin:0 auto 2.5rem;line-height:1.75}
+    .tools-section{position:relative;z-index:2;padding:0 2.5rem 6rem;max-width:1200px;margin:0 auto}
+    .sec-div{font-family:var(--mo);font-size:.62rem;color:var(--mu);letter-spacing:.15em;text-transform:uppercase;display:flex;align-items:center;gap:1rem;margin:3rem 0 1.5rem}
+    .sec-div::after{content:'';flex:1;height:1px;background:var(--bd)}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem}
+    .tool-card{background:var(--sur);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:border-color var(--t),box-shadow var(--t),transform .35s var(--sp);cursor:pointer}
+    .tool-card:hover{border-color:var(--card-accent,rgba(0,229,255,.25));box-shadow:0 12px 40px rgba(0,0,0,.4);transform:translateY(-4px)}
+    .tool-card.expanded{border-color:var(--card-accent,rgba(0,229,255,.35));box-shadow:0 16px 50px rgba(0,0,0,.5)}
+    .card-head{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.4rem;user-select:none}
+    .card-emoji{font-size:1.9rem;flex-shrink:0;transition:transform .35s var(--sp)}
+    .tool-card.expanded .card-emoji,.tool-card:hover .card-emoji{transform:scale(1.15) rotate(-6deg)}
+    .card-info{flex:1;min-width:0}
+    .card-name{font-family:var(--sa);font-size:1.05rem;font-weight:800;color:var(--w);margin-bottom:.18rem}
+    .card-cat{font-family:var(--mo);font-size:.6rem;color:var(--card-accent-text,var(--cy));letter-spacing:.08em;text-transform:uppercase}
+    .chip{font-family:var(--mo);font-size:.56rem;padding:.12rem .45rem;border-radius:3px;letter-spacing:.06em;display:inline-block;margin-top:.35rem}
+    .chip-live{color:var(--cy);background:var(--cyd);border:1px solid rgba(0,229,255,.2)}
+    .chip-soon{color:var(--mu2);background:rgba(255,255,255,.04);border:1px solid var(--bd)}
+    .card-chevron{color:var(--mu2);font-size:.85rem;transition:transform var(--t),color var(--t);flex-shrink:0}
+    .tool-card.expanded .card-chevron{transform:rotate(180deg);color:var(--card-accent-text,var(--cy))}
+    .card-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+    .card-body.open{max-height:900px}
+    .card-body-inner{padding:0 1.4rem 1.4rem;display:flex;flex-direction:column;gap:1rem}
+    .card-desc{font-size:.87rem;color:var(--mu2);line-height:1.7}
+    .tui{display:flex;flex-direction:column;gap:.75rem}
+    .tlb{font-family:var(--mo);font-size:.66rem;color:var(--mu);letter-spacing:.1em;text-transform:uppercase}
+    .tin{width:100%;padding:.75rem .9rem;background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:8px;color:var(--w);font-family:var(--mo);font-size:.82rem;outline:none;transition:border-color var(--t);resize:vertical;min-height:72px}
+    .tin:focus{border-color:var(--cy)}
+    .trow{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .tout{width:100%;padding:.9rem 1rem;background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:8px;font-family:var(--mo);font-size:.82rem;line-height:1.75;min-height:52px;word-break:break-all;white-space:pre-wrap}
+    .tout.cy{color:var(--cy)}.tout.g{color:var(--g)}.tout.vi{color:var(--vi)}.tout.mu{color:var(--mu2)}.tout.go{color:var(--go)}
+    .tstats{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+    .tstat{background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:8px;padding:.7rem .5rem;text-align:center;display:flex;flex-direction:column;gap:.25rem}
+    .tstat-v{font-family:var(--mo);font-size:1.1rem;font-weight:700}
+    .tstat-l{font-family:var(--mo);font-size:.55rem;color:var(--mu2);letter-spacing:.08em;text-transform:uppercase}
+    .tbtn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mo);font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.6rem 1.1rem;border-radius:4px;border:none;cursor:pointer;transition:transform var(--t) var(--sp),box-shadow var(--t)}
+    .tbtn.cy{background:var(--cy);color:#06090f}.tbtn.cy:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,229,255,.3)}
+    .tbtn.g{background:var(--g);color:#06090f}.tbtn.g:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(57,255,140,.3)}
+    .tbtn.vi{background:var(--vi);color:#fff}.tbtn.vi:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(157,110,255,.3)}
+    .tbtn.go{background:var(--go);color:#06090f}.tbtn.go:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,197,66,.3)}
+    .tbtn.ro{background:var(--ro);color:#fff}.tbtn.ro:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,138,.3)}
+    .tbtn.bd{background:transparent;color:var(--mu2);border:1px solid var(--bd)}.tbtn.bd:hover{color:var(--w);border-color:rgba(255,255,255,.2)}
+    .trange{width:100%;accent-color:var(--cy)}
+    .tsel{padding:.6rem .9rem;background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:8px;color:var(--w);font-family:var(--mo);font-size:.78rem;outline:none;cursor:pointer;transition:border-color var(--t)}.tsel:focus{border-color:var(--cy)}
+    .tnum{width:90px;padding:.62rem .8rem;background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:8px;color:var(--w);font-family:var(--mo);font-size:.82rem;outline:none;transition:border-color var(--t)}.tnum:focus{border-color:var(--cy)}
+    .btn-soon{display:inline-flex;align-items:center;font-family:var(--mo);font-size:.72rem;color:var(--mu);padding:.6rem 1.1rem;border-radius:4px;border:1px solid var(--bd);cursor:not-allowed;opacity:.55}
+    .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--g);color:#06090f;font-family:var(--mo);font-size:.72rem;font-weight:700;padding:.6rem 1.2rem;border-radius:6px;transform:translateY(60px);opacity:0;transition:transform .3s var(--sp),opacity .3s}
+    .toast.show{transform:translateY(0);opacity:1}
+    footer{position:relative;z-index:2;border-top:1px solid var(--bd);padding:2rem 0;margin-top:2rem}
+    .foot-in{max-width:1200px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .foot-logo{font-family:var(--mo);font-size:.95rem}.foot-logo .lx{color:var(--w)}.foot-logo .wis{color:var(--g)}
+    .foot-copy{font-family:var(--mo);font-size:.65rem;color:var(--mu)}
+    .foot-links{display:flex;gap:1.5rem}.foot-link{font-family:var(--mo);font-size:.68rem;color:var(--mu2);transition:color var(--t)}.foot-link:hover{color:var(--cy)}
+    .ru{opacity:0;transform:translateY(22px);transition:opacity .65s var(--ease),transform .65s var(--ease)}.ru.in{opacity:1;transform:translateY(0)}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(157,110,255,.5)}70%{box-shadow:0 0 0 8px rgba(157,110,255,0)}100%{box-shadow:0 0 0 0 rgba(157,110,255,0)}}
-    @media(max-width:768px){nav{padding:1rem 1.25rem}.nav-links,.nav-back{display:none}.nav-toggle{display:flex}.page{padding:6rem 1.25rem 4rem}}
+    @media(max-width:768px){nav{padding:1rem 1.25rem}.nav-links,.nav-back{display:none}.nav-toggle{display:flex}.page-hero{padding:7rem 1.25rem 3rem}.tools-section{padding:0 1.25rem 4rem}.foot-in{flex-direction:column;text-align:center}.tstats{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
@@ -95,6 +108,7 @@
   <div class="cursor-dot" id="cursorDot"></div>
   <canvas id="bg-canvas"></canvas>
   <div class="noise"></div>
+  <div class="toast" id="toast">Copied!</div>
 
   <nav id="nav">
     <a href="/" class="nav-logo"><span class="lx">lx</span><span class="wis">wis</span><span class="blink">_</span></a>
@@ -102,8 +116,8 @@
       <li><a href="/">home</a></li>
       <li><a href="/portfolio">portfolio</a></li>
       <li><a href="/games">games</a></li>
-      <li><a href="/tools">tools</a></li>
-      <li><a href="/links" class="active">links</a></li>
+      <li><a href="/tools" class="active">tools</a></li>
+      <li><a href="/links">links</a></li>
     </ul>
     <a href="/" class="nav-back">← home</a>
     <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
@@ -112,114 +126,48 @@
     <a href="/">home</a><a href="/portfolio">portfolio</a><a href="/games">games</a><a href="/tools">tools</a><a href="/links">links</a>
   </div>
 
-  <main class="page">
-    <div class="profile">
-      <div class="avatar-ring reveal d1">
-        <div class="ring-orbit"></div>
-        <img class="avatar" src="https://i.imgur.com/9jrzHF1_d.webp?maxwidth=760&fidelity=grand" alt="lxwis"/>
+  <div class="page-hero">
+    <div class="eyebrow ru">🛠️ lxwis.site/tools</div>
+    <h1 class="page-title ru" style="transition-delay:.06s">Web <span class="hi">Tools</span></h1>
+    <p class="page-sub ru" style="transition-delay:.12s">Tap a card, expand it, use it instantly. No login, no bs.</p>
+  </div>
+
+  <div class="tools-section">
+    <div class="sec-div ru">⚡ live — use now</div>
+    <div class="tools-grid" id="liveGrid"></div>
+    <div class="sec-div ru" style="margin-top:3.5rem">🔒 coming soon</div>
+    <div class="tools-grid" id="soonGrid"></div>
+  </div>
+
+  <footer>
+    <div class="foot-in">
+      <span class="foot-logo"><span class="lx">lx</span><span class="wis">wis</span></span>
+      <span class="foot-copy">lxwis.site/tools · 2025</span>
+      <div class="foot-links">
+        <a href="/portfolio" class="foot-link">portfolio</a>
+        <a href="/games" class="foot-link">games</a>
+        <a href="/links" class="foot-link">links</a>
       </div>
-      <div class="profile-name reveal d2"><span class="lx">lx</span><span class="wis">wis</span></div>
-      <div class="profile-handle reveal d3">@iamlxwis</div>
-      <p class="profile-bio reveal d4">Student developer from General Santos City — building real things on the web.</p>
-      <div class="badges reveal d5">
-        <span class="badge">🎓 ND-Siena College</span>
-        <span class="badge">💻 Web Dev</span>
-        <span class="badge">🇵🇭 GenSan</span>
-        <span class="badge">⚡ Firebase</span>
-      </div>
     </div>
-
-    <div class="links-container">
-
-      <div class="group-label reveal d5">🌐 my site</div>
-
-      <a href="https://lxwis.site" target="_blank" class="link-item link-featured reveal d6"
-         style="--item-glow:rgba(57,255,140,.1);--item-border:rgba(57,255,140,.35);--item-accent:#39ff8c">
-        <div class="link-icon-wrap">🏠</div>
-        <div><div class="link-name">lxwis.site</div><div class="link-url">Home · lxwis.site</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <a href="https://libnav.lxwis.site" target="_blank" class="link-item reveal d7"
-         style="--item-glow:rgba(0,229,255,.08);--item-border:rgba(0,229,255,.3);--item-accent:#00e5ff">
-        <div class="link-icon-wrap">📚</div>
-        <div><div class="link-name">LibNav</div><div class="link-url">Library navigation system · libnav.lxwis.site</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <div class="group-label reveal d7">📱 socials</div>
-
-      <a href="https://github.com/iamlxwis" target="_blank" class="link-item reveal d8"
-         style="--item-glow:rgba(255,255,255,.05);--item-border:rgba(255,255,255,.2);--item-accent:#edf2f7">
-        <div class="link-icon-wrap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.461-1.11-1.461-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        </div>
-        <div><div class="link-name">GitHub</div><div class="link-url">github.com/iamlxwis</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <a href="https://facebook.com/iamlxwis" target="_blank" class="link-item reveal d9"
-         style="--item-glow:rgba(24,119,242,.1);--item-border:rgba(24,119,242,.35);--item-accent:#4a90d9">
-        <div class="link-icon-wrap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-        </div>
-        <div><div class="link-name">Facebook</div><div class="link-url">facebook.com/iamlxwis</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <a href="https://t.me/iamlxwis" target="_blank" class="link-item reveal d10"
-         style="--item-glow:rgba(0,136,204,.1);--item-border:rgba(0,136,204,.35);--item-accent:#4aa8d4">
-        <div class="link-icon-wrap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.913l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.646z"/></svg>
-        </div>
-        <div><div class="link-name">Telegram</div><div class="link-url">t.me/iamlxwis</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <div class="group-label reveal d10">✨ explore</div>
-
-      <a href="/portfolio" class="link-item reveal d11"
-         style="--item-glow:rgba(57,255,140,.08);--item-border:rgba(57,255,140,.25);--item-accent:#39ff8c">
-        <div class="link-icon-wrap">🧑‍💻</div>
-        <div><div class="link-name">Portfolio</div><div class="link-url">lxwis.site/portfolio</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <a href="/games" class="link-item reveal d12"
-         style="--item-glow:rgba(0,229,255,.08);--item-border:rgba(0,229,255,.25);--item-accent:#00e5ff">
-        <div class="link-icon-wrap">🎮</div>
-        <div><div class="link-name">Games</div><div class="link-url">lxwis.site/games</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-      <a href="/tools" class="link-item reveal d13"
-         style="--item-glow:rgba(157,110,255,.08);--item-border:rgba(157,110,255,.25);--item-accent:#9d6eff">
-        <div class="link-icon-wrap">🛠️</div>
-        <div><div class="link-name">Tools</div><div class="link-url">lxwis.site/tools</div></div>
-        <span class="link-arrow">↗</span>
-      </a>
-
-    </div>
-
-    <div class="footer-note reveal">
-      <p>made with 💜 by <a href="/">lxwis</a></p>
-      <p style="margin-top:.25rem">General Santos City, PH · 2025</p>
-    </div>
-  </main>
+  </footer>
 
   <script>
-    const cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
-    let mx=-200,my=-200,cx=-200,cy=-200;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'))});
-    (function loop(){cx+=(mx-cx)*.12;cy+=(my-cy)*.12;cur.style.left=cx+'px';cur.style.top=cy+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(loop)})();
+  (function(){
+    if(matchMedia('(pointer:fine)').matches){
+      const cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+      let mx=-200,my=-200,cx=-200,cy=-200;
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+      (function loop(){cx+=(mx-cx)*.12;cy+=(my-cy)*.12;cur.style.left=cx+'px';cur.style.top=cy+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(loop)})();
+      document.addEventListener('mouseenter',e=>{if(e.target.matches('a,button,input,textarea,select,.tool-card'))cur.classList.add('big')},{capture:true});
+      document.addEventListener('mouseleave',e=>{if(e.target.matches('a,button,input,textarea,select,.tool-card'))cur.classList.remove('big')},{capture:true});
+    }
 
     const bgc=document.getElementById('bg-canvas'),bctx=bgc.getContext('2d');
     let W,H,pts=[];
-    function resize(){W=bgc.width=innerWidth;H=bgc.height=innerHeight}
-    class P{constructor(){this.reset()}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.22;this.vy=(Math.random()-.5)*.22;this.r=Math.random()*1+.2;this.a=Math.random()*.3+.06;this.c=Math.random()>.5?'157,110,255':'57,255,140'}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}draw(){bctx.beginPath();bctx.arc(this.x,this.y,this.r,0,Math.PI*2);bctx.fillStyle=`rgba(${this.c},${this.a})`;bctx.fill()}}
-    function initBg(){resize();pts=Array.from({length:60},()=>new P())}
-    (function frame(){bctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){bctx.strokeStyle=`rgba(157,110,255,${(1-d/100)*.04})`;bctx.lineWidth=.5;bctx.beginPath();bctx.moveTo(pts[i].x,pts[i].y);bctx.lineTo(pts[j].x,pts[j].y);bctx.stroke()}}pts[i].update();pts[i].draw()}requestAnimationFrame(frame)})();
+    function rsz(){W=bgc.width=innerWidth;H=bgc.height=innerHeight}
+    class P{constructor(){this.reset()}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.r=Math.random()*1.1+.2;this.a=Math.random()*.35+.06;this.c=Math.random()>.6?'0,229,255':'57,255,140'}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}draw(){bctx.beginPath();bctx.arc(this.x,this.y,this.r,0,Math.PI*2);bctx.fillStyle=`rgba(${this.c},${this.a})`;bctx.fill()}}
+    function initBg(){rsz();pts=Array.from({length:65},()=>new P())}
+    (function frame(){bctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){bctx.strokeStyle=`rgba(0,229,255,${(1-d/110)*.04})`;bctx.lineWidth=.5;bctx.beginPath();bctx.moveTo(pts[i].x,pts[i].y);bctx.lineTo(pts[j].x,pts[j].y);bctx.stroke()}}pts[i].update();pts[i].draw()}requestAnimationFrame(frame)})();
     window.addEventListener('resize',initBg,{passive:true});initBg();
 
     const nav=document.getElementById('nav');
@@ -229,7 +177,73 @@
     mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{tog.classList.remove('open');mob.classList.remove('open');document.body.style.overflow=''}));
 
     const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.05});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    document.querySelectorAll('.ru').forEach(el=>io.observe(el));
+    setTimeout(()=>document.querySelectorAll('.page-hero .ru').forEach(el=>el.classList.add('in')),80);
+
+    function showToast(m='Copied!'){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+    function cp(txt){navigator.clipboard.writeText(txt).then(()=>showToast())}
+
+    const LOREM=['Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.','Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.','Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.','Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.','Pellentesque habitant morbi tristique senectus et netus et malesuada.','Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet.','Donec eu libero sit amet quam egestas semper aenean ultricies.','Curabitur pretium tincidunt lacus nulla mauris, dignissim tempus.'];
+
+    const LIVE=[
+      {emoji:'📝',name:'Char Counter',cat:'text',accent:'rgba(57,255,140,.25)',aT:'#39ff8c',desc:'Count characters, words, lines, and no-space characters — updates live.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tlb">Your text</div><textarea class="tin" id="ccI" placeholder="Paste or type..." rows="4"></textarea><div class="tstats"><div class="tstat"><div class="tstat-v cy" id="cc-c">0</div><div class="tstat-l">Chars</div></div><div class="tstat"><div class="tstat-v g" id="cc-w">0</div><div class="tstat-l">Words</div></div><div class="tstat"><div class="tstat-v vi" id="cc-l">0</div><div class="tstat-l">Lines</div></div><div class="tstat"><div class="tstat-v go" id="cc-n">0</div><div class="tstat-l">No Space</div></div></div></div>`;el.querySelector('#ccI').addEventListener('input',e=>{const v=e.target.value;el.querySelector('#cc-c').textContent=v.length;el.querySelector('#cc-w').textContent=v.trim()?v.trim().split(/\s+/).length:0;el.querySelector('#cc-l').textContent=v?v.split('\n').length:0;el.querySelector('#cc-n').textContent=v.replace(/\s/g,'').length})}},
+      {emoji:'🔐',name:'Base64',cat:'encoding',accent:'rgba(0,229,255,.25)',aT:'#00e5ff',desc:'Encode plain text to Base64 or decode Base64 back to readable text.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tlb">Input</div><textarea class="tin" id="b64I" placeholder="Text or Base64..." rows="3"></textarea><div class="trow"><button class="tbtn cy" id="b64E">Encode →</button><button class="tbtn bd" id="b64D">← Decode</button><button class="tbtn bd" id="b64C">Copy</button></div><div class="tlb">Output</div><div class="tout cy" id="b64O">Result...</div></div>`;el.querySelector('#b64E').addEventListener('click',()=>{try{el.querySelector('#b64O').textContent=btoa(unescape(encodeURIComponent(el.querySelector('#b64I').value)))}catch{el.querySelector('#b64O').textContent='❌ Encode failed'}});el.querySelector('#b64D').addEventListener('click',()=>{try{el.querySelector('#b64O').textContent=decodeURIComponent(escape(atob(el.querySelector('#b64I').value.trim())))}catch{el.querySelector('#b64O').textContent='❌ Invalid Base64'}});el.querySelector('#b64C').addEventListener('click',()=>cp(el.querySelector('#b64O').textContent))}},
+      {emoji:'📄',name:'Lorem Generator',cat:'placeholder',accent:'rgba(157,110,255,.25)',aT:'#9d6eff',desc:'Generate Lorem Ipsum placeholder text — choose how many paragraphs.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="trow" style="align-items:center"><div><div class="tlb">Paragraphs</div><input type="number" class="tnum" id="lN" value="2" min="1" max="10"/></div><button class="tbtn vi" id="lG" style="margin-top:1.1rem">Generate</button><button class="tbtn bd" id="lC" style="margin-top:1.1rem">Copy</button></div><div class="tout mu" id="lO" style="min-height:90px;white-space:pre-wrap">Click Generate...</div></div>`;function gen(){const n=Math.max(1,Math.min(10,parseInt(el.querySelector('#lN').value)||2));const r=[];for(let i=0;i<n;i++){const s=3+Math.floor(Math.random()*4);r.push(Array.from({length:s},()=>LOREM[Math.floor(Math.random()*LOREM.length)]).join(' '))}el.querySelector('#lO').textContent=r.join('\n\n')}el.querySelector('#lG').addEventListener('click',gen);el.querySelector('#lC').addEventListener('click',()=>cp(el.querySelector('#lO').textContent));gen()}},
+      {emoji:'🔗',name:'URL Encoder',cat:'encoding',accent:'rgba(0,229,255,.25)',aT:'#00e5ff',desc:'Encode special characters in URLs or decode encoded URLs back.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tlb">Input</div><textarea class="tin" id="uI" placeholder="Paste URL..." rows="3"></textarea><div class="trow"><button class="tbtn cy" id="uE">Encode →</button><button class="tbtn bd" id="uD">← Decode</button><button class="tbtn bd" id="uC">Copy</button></div><div class="tlb">Output</div><div class="tout cy" id="uO">Result...</div></div>`;el.querySelector('#uE').addEventListener('click',()=>{try{el.querySelector('#uO').textContent=encodeURIComponent(el.querySelector('#uI').value)}catch{el.querySelector('#uO').textContent='❌ Failed'}});el.querySelector('#uD').addEventListener('click',()=>{try{el.querySelector('#uO').textContent=decodeURIComponent(el.querySelector('#uI').value)}catch{el.querySelector('#uO').textContent='❌ Invalid'}});el.querySelector('#uC').addEventListener('click',()=>cp(el.querySelector('#uO').textContent))}},
+      {emoji:'🎨',name:'Color Converter',cat:'design',accent:'rgba(245,197,66,.25)',aT:'#f5c542',desc:'Convert colors between HEX, RGB, and HSL. Live color preview.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="trow" style="align-items:center"><div style="flex:1"><div class="tlb">HEX</div><input type="text" class="tin" id="hI" placeholder="#39ff8c" style="min-height:unset;height:42px;resize:none"/></div><input type="color" id="cP" value="#39ff8c" style="width:42px;height:42px;border-radius:8px;border:1px solid var(--bd);background:none;cursor:pointer;margin-top:1.1rem"/></div><div class="tstats" style="grid-template-columns:1fr 1fr"><div class="tstat"><div class="tstat-v cy" id="rgbO" style="font-size:.75rem">---</div><div class="tstat-l">RGB</div></div><div class="tstat"><div class="tstat-v vi" id="hslO" style="font-size:.75rem">---</div><div class="tstat-l">HSL</div></div></div></div>`;function h2r(h){const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h.trim());return r?{r:parseInt(r[1],16),g:parseInt(r[2],16),b:parseInt(r[3],16)}:null}function r2h(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b);let h,s,l=(mx+mn)/2;if(mx===mn){h=s=0}else{const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);switch(mx){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6}}return{h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)}}function upd(hex){const rgb=h2r(hex);if(!rgb)return;const hsl=r2h(rgb.r,rgb.g,rgb.b);el.querySelector('#rgbO').textContent=`rgb(${rgb.r},${rgb.g},${rgb.b})`;el.querySelector('#hslO').textContent=`hsl(${hsl.h},${hsl.s}%,${hsl.l}%)`;el.querySelector('#cP').value=hex.startsWith('#')?hex:'#'+hex}el.querySelector('#hI').addEventListener('input',e=>upd(e.target.value));el.querySelector('#cP').addEventListener('input',e=>{el.querySelector('#hI').value=e.target.value;upd(e.target.value)});upd('#39ff8c')}},
+      {emoji:'⏱️',name:'Timestamp',cat:'datetime',accent:'rgba(57,255,140,.25)',aT:'#39ff8c',desc:'Convert Unix timestamps to dates and back. Live current timestamp.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tstats" style="grid-template-columns:1fr"><div class="tstat"><div class="tstat-v g" id="nTs" style="font-size:1rem">---</div><div class="tstat-l">Current Unix Timestamp (live)</div></div></div><div class="tlb">Unix → Date</div><div class="trow"><input type="number" class="tnum" id="tI" placeholder="1700000000" style="flex:1"/><button class="tbtn g" id="tC">Convert</button></div><div class="tout g" id="tO">Result...</div><div class="tlb">Date → Unix</div><div class="trow"><input type="datetime-local" class="tin" id="dI" style="min-height:unset;height:42px;resize:none;flex:1"/><button class="tbtn g" id="dC">Convert</button></div><div class="tout g" id="dO">Result...</div></div>`;setInterval(()=>{el.querySelector('#nTs').textContent=Math.floor(Date.now()/1000)},1000);el.querySelector('#tC').addEventListener('click',()=>{const ts=parseInt(el.querySelector('#tI').value);el.querySelector('#tO').textContent=isNaN(ts)?'❌ Invalid':new Date(ts*1000).toString()});el.querySelector('#dC').addEventListener('click',()=>{const v=el.querySelector('#dI').value;el.querySelector('#dO').textContent=v?Math.floor(new Date(v).getTime()/1000):'❌ Pick a date'})}},
+      {emoji:'🔢',name:'Number Base',cat:'math',accent:'rgba(0,229,255,.25)',aT:'#00e5ff',desc:'Convert numbers between decimal, binary, hex, and octal.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="trow" style="align-items:center"><div style="flex:1"><div class="tlb">Input</div><input type="text" class="tin" id="nbI" placeholder="255" style="min-height:unset;height:42px;resize:none"/></div><select class="tsel" id="nbF" style="margin-top:1.1rem"><option value="10">Decimal</option><option value="2">Binary</option><option value="16">Hex</option><option value="8">Octal</option></select></div><div class="tstats"><div class="tstat"><div class="tstat-v cy" id="nb-d">---</div><div class="tstat-l">Decimal</div></div><div class="tstat"><div class="tstat-v g" id="nb-b">---</div><div class="tstat-l">Binary</div></div><div class="tstat"><div class="tstat-v vi" id="nb-h">---</div><div class="tstat-l">Hex</div></div><div class="tstat"><div class="tstat-v go" id="nb-o">---</div><div class="tstat-l">Octal</div></div></div></div>`;function cv(){const b=parseInt(el.querySelector('#nbF').value),n=parseInt(el.querySelector('#nbI').value,b);if(isNaN(n)){['nb-d','nb-b','nb-h','nb-o'].forEach(id=>el.querySelector('#'+id).textContent='---');return}el.querySelector('#nb-d').textContent=n.toString(10);el.querySelector('#nb-b').textContent=n.toString(2);el.querySelector('#nb-h').textContent=n.toString(16).toUpperCase();el.querySelector('#nb-o').textContent=n.toString(8)}el.querySelector('#nbI').addEventListener('input',cv);el.querySelector('#nbF').addEventListener('change',cv)}},
+      {emoji:'🧮',name:'Calculator',cat:'math',accent:'rgba(157,110,255,.25)',aT:'#9d6eff',desc:'Clean calculator with keyboard support — basics plus percentage.',
+       build:el=>{el.innerHTML=`<div style="display:flex;flex-direction:column;gap:.5rem"><div style="background:rgba(0,0,0,.4);border:1px solid var(--bd);border-radius:10px;padding:1rem;text-align:right"><div id="cExpr" style="font-family:var(--mo);font-size:.7rem;color:var(--mu2);min-height:1rem;margin-bottom:.3rem"></div><div id="cDisp" style="font-family:var(--mo);font-size:1.75rem;color:var(--w);word-break:break-all">0</div></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem" id="cBtns"></div></div>`;const btns=[['C','±','%','÷'],['7','8','9','×'],['4','5','6','−'],['1','2','3','+'],['0','.','⌫','=']];const g=el.querySelector('#cBtns');btns.forEach(row=>row.forEach(b=>{const btn=document.createElement('button');btn.textContent=b;btn.style.cssText=`padding:.7rem;border-radius:8px;font-family:var(--mo);font-size:.9rem;font-weight:700;cursor:pointer;border:1px solid var(--bd);transition:filter .15s;background:${['÷','×','−','+','='].includes(b)?b==='='?'var(--vi)':'rgba(157,110,255,.2)':['C','±','%'].includes(b)?'rgba(255,255,255,.07)':'var(--sur)'};color:var(--w)`;btn.addEventListener('mouseenter',()=>btn.style.filter='brightness(1.3)');btn.addEventListener('mouseleave',()=>btn.style.filter='');btn.addEventListener('click',()=>ci(b));g.appendChild(btn)}));let disp='0',expr='',op='',prev='',fresh=false;const D=el.querySelector('#cDisp'),E=el.querySelector('#cExpr');function ci(v){if(v==='C'){disp='0';expr='';op='';prev='';fresh=false}else if(v==='⌫'){disp=disp.length>1?disp.slice(0,-1):'0'}else if(v==='±'){disp=disp.startsWith('-')?disp.slice(1):'-'+disp}else if(v==='%'){disp=String(parseFloat(disp)/100)}else if(['÷','×','−','+'].includes(v)){prev=disp;op=v;expr=disp+' '+v;fresh=true}else if(v==='='){if(!op)return;const a=parseFloat(prev),b=parseFloat(disp);E.textContent=expr+' '+disp+' =';const res={'+':a+b,'−':a-b,'×':a*b,'÷':a/b}[op];disp=String(parseFloat(res.toFixed(10)));op='';prev='';fresh=false}else{if(fresh){disp='0';fresh=false}disp=disp==='0'&&v!=='.'?v:disp+v}D.textContent=disp;if(v!=='=')E.textContent=expr}}},
+      {emoji:'🔑',name:'Password Gen',cat:'security',accent:'rgba(255,107,138,.25)',aT:'#ff6b8a',desc:'Generate strong random passwords with custom length and character sets.',
+       build:el=>{el.innerHTML=`<div class="tui"><div><div class="tlb">Length: <span id="pwL">16</span></div><input type="range" class="trange" id="pwS" min="6" max="64" value="16"/></div><div class="trow" style="flex-wrap:wrap;gap:.75rem"><label style="font-family:var(--mo);font-size:.68rem;color:var(--mu2);display:flex;align-items:center;gap:.35rem"><input type="checkbox" id="pwU" checked/> Uppercase</label><label style="font-family:var(--mo);font-size:.68rem;color:var(--mu2);display:flex;align-items:center;gap:.35rem"><input type="checkbox" id="pwLo" checked/> Lowercase</label><label style="font-family:var(--mo);font-size:.68rem;color:var(--mu2);display:flex;align-items:center;gap:.35rem"><input type="checkbox" id="pwN" checked/> Numbers</label><label style="font-family:var(--mo);font-size:.68rem;color:var(--mu2);display:flex;align-items:center;gap:.35rem"><input type="checkbox" id="pwSy"/> Symbols</label></div><div class="trow"><button class="tbtn ro" id="pwG">Generate</button><button class="tbtn bd" id="pwC">Copy</button></div><div class="tout" id="pwO" style="letter-spacing:.06em;word-break:break-all">Click Generate...</div></div>`;el.querySelector('#pwS').addEventListener('input',e=>el.querySelector('#pwL').textContent=e.target.value);function gen(){let ch='';if(el.querySelector('#pwU').checked)ch+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(el.querySelector('#pwLo').checked)ch+='abcdefghijklmnopqrstuvwxyz';if(el.querySelector('#pwN').checked)ch+='0123456789';if(el.querySelector('#pwSy').checked)ch+='!@#$%^&*()_+-=[]{}|;:,.<>?';if(!ch)ch='abcdefghijklmnopqrstuvwxyz';const len=parseInt(el.querySelector('#pwS').value);el.querySelector('#pwO').textContent=Array.from({length:len},()=>ch[Math.floor(Math.random()*ch.length)]).join('')}el.querySelector('#pwG').addEventListener('click',gen);el.querySelector('#pwC').addEventListener('click',()=>cp(el.querySelector('#pwO').textContent));gen()}},
+      {emoji:'🔍',name:'JSON Formatter',cat:'dev',accent:'rgba(57,255,140,.25)',aT:'#39ff8c',desc:'Format and pretty-print JSON, or minify it back to one line.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tlb">JSON Input</div><textarea class="tin" id="jI" placeholder='{"name":"lxwis","cool":true}' rows="4"></textarea><div class="trow"><button class="tbtn g" id="jF">Format</button><button class="tbtn bd" id="jM">Minify</button><button class="tbtn bd" id="jC">Copy</button></div><div class="tlb">Output</div><div class="tout g" id="jO" style="min-height:80px;white-space:pre">Result...</div></div>`;el.querySelector('#jF').addEventListener('click',()=>{try{el.querySelector('#jO').textContent=JSON.stringify(JSON.parse(el.querySelector('#jI').value),null,2)}catch(e){el.querySelector('#jO').textContent='❌ '+e.message}});el.querySelector('#jM').addEventListener('click',()=>{try{el.querySelector('#jO').textContent=JSON.stringify(JSON.parse(el.querySelector('#jI').value))}catch(e){el.querySelector('#jO').textContent='❌ '+e.message}});el.querySelector('#jC').addEventListener('click',()=>cp(el.querySelector('#jO').textContent))}},
+      {emoji:'🌡️',name:'Unit Converter',cat:'utility',accent:'rgba(245,197,66,.25)',aT:'#f5c542',desc:'Convert temperature, length, and weight between common units.',
+       build:el=>{el.innerHTML=`<div class="tui"><select class="tsel" id="ucT"><option>Temperature</option><option>Length</option><option>Weight</option></select><div class="trow" style="align-items:center"><input type="number" class="tnum" id="ucI" placeholder="0" style="flex:1"/><select class="tsel" id="ucF"></select></div><div class="tout go" id="ucO" style="min-height:60px;white-space:pre-line">Select unit and enter value...</div></div>`;const units={Temperature:{Celsius:{C:v=>v,F:v=>v*9/5+32,K:v=>v+273.15},Fahrenheit:{C:v=>(v-32)*5/9,F:v=>v,K:v=>(v-32)*5/9+273.15},Kelvin:{C:v=>v-273.15,F:v=>(v-273.15)*9/5+32,K:v=>v}},Length:{Meters:{Meters:v=>v,Kilometers:v=>v/1000,Miles:v=>v/1609.34,Feet:v=>v*3.28084},Kilometers:{Meters:v=>v*1000,Kilometers:v=>v,Miles:v=>v/1.60934,Feet:v=>v*3280.84},Miles:{Meters:v=>v*1609.34,Kilometers:v=>v*1.60934,Miles:v=>v,Feet:v=>v*5280},Feet:{Meters:v=>v/3.28084,Kilometers:v=>v/3280.84,Miles:v=>v/5280,Feet:v=>v}},Weight:{Kilograms:{Kilograms:v=>v,Pounds:v=>v*2.20462,Grams:v=>v*1000},Pounds:{Kilograms:v=>v/2.20462,Pounds:v=>v,Grams:v=>v/2.20462*1000},Grams:{Kilograms:v=>v/1000,Pounds:v=>v/1000*2.20462,Grams:v=>v}}};function updF(){const t=el.querySelector('#ucT').value,s=el.querySelector('#ucF');s.innerHTML='';Object.keys(units[t]).forEach(u=>{const o=document.createElement('option');o.textContent=u;s.appendChild(o)})}function cv(){const t=el.querySelector('#ucT').value,f=el.querySelector('#ucF').value,v=parseFloat(el.querySelector('#ucI').value);if(isNaN(v)){el.querySelector('#ucO').textContent='Enter a number';return}el.querySelector('#ucO').textContent=Object.entries(units[t][f]).map(([to,fn])=>`${to}: ${parseFloat(fn(v).toFixed(6))} `).join('\n')}el.querySelector('#ucT').addEventListener('change',()=>{updF();cv()});el.querySelector('#ucF').addEventListener('change',cv);el.querySelector('#ucI').addEventListener('input',cv);updF()}},
+      {emoji:'📱',name:'QR Generator',cat:'utility',accent:'rgba(57,255,140,.25)',aT:'#39ff8c',desc:'Type any text or URL and get a scannable QR code. Download as PNG — fully offline after load.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="tlb">Text or URL</div><textarea class="tin" id="qrI" placeholder="https://lxwis.site" rows="2" style="min-height:60px"></textarea><div class="trow"><button class="tbtn g" id="qrG">Generate QR</button><button class="tbtn bd" id="qrD">Download PNG</button></div><div style="display:flex;justify-content:center;padding:.5rem 0"><canvas id="qrC" style="border-radius:10px;border:1px solid var(--bd);background:#fff;display:none;image-rendering:pixelated"></canvas></div></div>`;function doQR(){const text=el.querySelector('#qrI').value.trim()||'https://lxwis.site';const cv=el.querySelector('#qrC');cv.style.display='block';function generate(){const tmp=document.createElement('div');tmp.style.display='none';document.body.appendChild(tmp);new QRCode(tmp,{text,width:200,height:200,colorDark:'#06090f',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});setTimeout(()=>{const img=tmp.querySelector('img')||tmp.querySelector('canvas');if(img){cv.width=200;cv.height=200;cv.getContext('2d').drawImage(img,0,0,200,200)}document.body.removeChild(tmp)},200)}if(window.QRCode)generate();else{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';s.onload=generate;document.head.appendChild(s)}}el.querySelector('#qrG').addEventListener('click',doQR);el.querySelector('#qrD').addEventListener('click',()=>{const cv=el.querySelector('#qrC');if(cv.style.display==='none'){showToast('Generate a QR first!');return}const a=document.createElement('a');a.href=cv.toDataURL();a.download='qr-lxwis.png';a.click()});doQR()}},
+      {emoji:'🍅',name:'Pomodoro Timer',cat:'productivity',accent:'rgba(255,107,138,.25)',aT:'#ff6b8a',desc:'25-minute focus sessions with 5-minute breaks. Tracks completed pomodoros.',
+       build:el=>{el.innerHTML=`<div class="tui" style="align-items:center;text-align:center"><div id="pmMode" style="font-family:var(--mo);font-size:.65rem;color:var(--ro);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem">FOCUS</div><div id="pmDisp" style="font-family:var(--mo);font-size:3.5rem;font-weight:700;color:var(--w);letter-spacing:.04em;line-height:1;margin-bottom:1rem">25:00</div><div style="font-family:var(--mo);font-size:.68rem;color:var(--mu2);margin-bottom:1rem">🍅 × <span id="pmT">0</span> completed</div><div style="width:100%;height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:1.25rem"><div id="pmBar" style="height:4px;background:var(--ro);border-radius:2px;width:0%;transition:width .5s"></div></div><div class="trow" style="justify-content:center"><button class="tbtn ro" id="pmTgl">▶ Start</button><button class="tbtn bd" id="pmRst">Reset</button></div><div class="trow" style="justify-content:center;margin-top:.5rem"><button class="tbtn bd" id="pmW" style="font-size:.6rem">Work 25m</button><button class="tbtn bd" id="pmS" style="font-size:.6rem">Break 5m</button><button class="tbtn bd" id="pmL" style="font-size:.6rem">Long 15m</button></div></div>`;let tot=25*60,left=25*60,run=false,intv,toms=0,mode='focus';function tick(){left--;upd();if(left<=0){clearInterval(intv);run=false;el.querySelector('#pmTgl').textContent='▶ Start';if(mode==='focus'){toms++;el.querySelector('#pmT').textContent=toms;setM(5,'break','var(--cy)')}else setM(25,'focus','var(--ro)');upd();showToast(mode==='break'?'Break time! 🎉':'Focus time! 💪')}}function upd(){const m=Math.floor(left/60),s=left%60;el.querySelector('#pmDisp').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.querySelector('#pmBar').style.width=`${((tot-left)/tot)*100}%`}function setM(mins,m,color){clearInterval(intv);run=false;mode=m;tot=mins*60;left=mins*60;el.querySelector('#pmMode').textContent=m.toUpperCase();el.querySelector('#pmMode').style.color=color;el.querySelector('#pmBar').style.background=color;el.querySelector('#pmTgl').textContent='▶ Start';upd()}el.querySelector('#pmTgl').addEventListener('click',()=>{run=!run;if(run){intv=setInterval(tick,1000);el.querySelector('#pmTgl').textContent='⏸ Pause'}else{clearInterval(intv);el.querySelector('#pmTgl').textContent='▶ Start'}});el.querySelector('#pmRst').addEventListener('click',()=>{clearInterval(intv);run=false;left=tot;el.querySelector('#pmTgl').textContent='▶ Start';upd()});el.querySelector('#pmW').addEventListener('click',()=>setM(25,'focus','var(--ro)'));el.querySelector('#pmS').addEventListener('click',()=>setM(5,'break','var(--cy)'));el.querySelector('#pmL').addEventListener('click',()=>setM(15,'long break','var(--vi)'));upd()}},
+      {emoji:'🎨',name:'Gradient Generator',cat:'design',accent:'rgba(157,110,255,.25)',aT:'#9d6eff',desc:'Pick colors, choose direction, get the CSS gradient code. Live preview, one-click copy.',
+       build:el=>{el.innerHTML=`<div class="tui"><div class="trow" style="flex-wrap:wrap;gap:1rem;align-items:center"><div><div class="tlb">Color 1</div><input type="color" id="gc1" value="#39ff8c" style="width:52px;height:40px;border-radius:8px;border:1px solid var(--bd);cursor:pointer;background:none"/></div><div><div class="tlb">Color 2</div><input type="color" id="gc2" value="#9d6eff" style="width:52px;height:40px;border-radius:8px;border:1px solid var(--bd);cursor:pointer;background:none"/></div><div><div class="tlb">Color 3</div><input type="color" id="gc3" value="#00e5ff" style="width:52px;height:40px;border-radius:8px;border:1px solid var(--bd);cursor:pointer;background:none"/><label style="font-family:var(--mo);font-size:.6rem;color:var(--mu2);display:flex;align-items:center;gap:.3rem;margin-top:.3rem"><input type="checkbox" id="gc3e"> Enable</label></div><div><div class="tlb">Direction</div><select class="tsel" id="gcD"><option value="to right">→ Right</option><option value="to bottom">↓ Down</option><option value="135deg">↘ Diagonal</option><option value="to top right">↗ Top Right</option><option value="circle">◎ Radial</option></select></div></div><div id="gcPrev" style="width:100%;height:100px;border-radius:10px;border:1px solid var(--bd);margin:.5rem 0;transition:background .3s"></div><div class="tlb">CSS Code</div><div class="tout vi" id="gcOut" style="cursor:pointer" title="Click to copy"></div><button class="tbtn vi" id="gcCp">Copy CSS</button></div>`;function gcUpd(){const c1=el.querySelector('#gc1').value,c2=el.querySelector('#gc2').value,c3=el.querySelector('#gc3').value,u3=el.querySelector('#gc3e').checked,dir=el.querySelector('#gcD').value;const stops=u3?`${c1}, ${c3}, ${c2}`:`${c1}, ${c2}`;const css=dir==='circle'?`radial-gradient(circle, ${stops})`:`linear-gradient(${dir}, ${stops})`;el.querySelector('#gcPrev').style.background=css;el.querySelector('#gcOut').textContent=`background: ${css};`}['gc1','gc2','gc3','gcD'].forEach(id=>el.querySelector('#'+id).addEventListener('input',gcUpd));el.querySelector('#gc3e').addEventListener('change',gcUpd);el.querySelector('#gcCp').addEventListener('click',()=>cp(el.querySelector('#gcOut').textContent));el.querySelector('#gcOut').addEventListener('click',()=>cp(el.querySelector('#gcOut').textContent));gcUpd()}},
+    ];
+
+    const SOON=[
+      {emoji:'🔤',name:'Case Converter',cat:'text',accent:'rgba(157,110,255,.2)',aT:'#9d6eff',desc:'Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case — all at once.'},
+      {emoji:'📊',name:'CSV Viewer',cat:'data',accent:'rgba(0,229,255,.2)',aT:'#00e5ff',desc:'Paste CSV data and see it rendered as a clean, sortable table. Export back or copy specific rows.'},
+      {emoji:'🖼️',name:'Image to Base64',cat:'encoding',accent:'rgba(245,197,66,.2)',aT:'#f5c542',desc:'Upload any image and get the full Base64 string — great for embedding in HTML/CSS.'},
+      {emoji:'⚡',name:'Regex Tester',cat:'dev',accent:'rgba(255,107,138,.2)',aT:'#ff6b8a',desc:'Test regex against sample text in real time. Highlights all matches and shows groups.'},
+      {emoji:'📐',name:'Aspect Ratio',cat:'design',accent:'rgba(157,110,255,.2)',aT:'#9d6eff',desc:'Enter width and height to get the exact ratio and scale proportionally.'},
+      {emoji:'🕒',name:'World Clock',cat:'datetime',accent:'rgba(0,229,255,.2)',aT:'#00e5ff',desc:'See the current time across multiple timezones at once. Add and remove cities.'},
+      {emoji:'📋',name:'README Generator',cat:'dev',accent:'rgba(57,255,140,.2)',aT:'#39ff8c',desc:'Fill a form, get a full GitHub README.md. Devs actually need this — free forever.'},
+    ];
+
+    function makeCard(tool,live){
+      const card=document.createElement('div');
+      card.className='tool-card';
+      card.style.setProperty('--card-accent',tool.accent);
+      card.style.setProperty('--card-accent-text',tool.aT||'#00e5ff');
+      const uid=`tui-${tool.name.replace(/\s/g,'-')}`;
+      card.innerHTML=`<div class="card-head"><span class="card-emoji">${tool.emoji}</span><div class="card-info"><div class="card-name">${tool.name}</div><div class="card-cat">${tool.cat}</div><span class="chip ${live?'chip-live':'chip-soon'}">${live?'⚡ live':'coming soon'}</span></div><span class="card-chevron">▾</span></div><div class="card-body"><div class="card-body-inner"><p class="card-desc">${tool.desc}</p><div id="${uid}"></div>${!live?'<span class="btn-soon">🔒 Not available yet</span>':''}</div></div>`;
+      card.querySelector('.card-head').addEventListener('click',()=>{
+        const open=card.classList.contains('expanded');
+        document.querySelectorAll('.tool-card').forEach(c=>{c.classList.remove('expanded');c.querySelector('.card-body').classList.remove('open')});
+        if(!open){card.classList.add('expanded');card.querySelector('.card-body').classList.add('open');if(live&&tool.build&&!card.dataset.built){tool.build(card.querySelector('#'+uid));card.dataset.built='1'}}
+      });
+      return card;
+    }
+
+    LIVE.forEach(t=>document.getElementById('liveGrid').appendChild(makeCard(t,true)));
+    SOON.forEach(t=>document.getElementById('soonGrid').appendChild(makeCard(t,false)));
+  })();
   </script>
 </body>
 </html>
